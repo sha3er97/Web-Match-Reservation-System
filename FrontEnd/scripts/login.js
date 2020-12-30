@@ -1,13 +1,14 @@
 var usern = document.getElementById("username");
 var pass = document.getElementById("password");
 var users = [];
-var password;
+var password ;
 const submit = document.getElementById("submitBtn");
 
 //to be edited
 submit.addEventListener("click", (e) => {
     e.preventDefault();
-    var flag = false;
+    // var flag = false;
+    var flag = true;
     for (var i = 0; i < users.length; i++) {
         if (usern.value == users[i] && pass.value == password) {
             flag = true;
@@ -17,7 +18,7 @@ submit.addEventListener("click", (e) => {
         }
     }
     if (flag == true) {
-        location.replace("grid.html");
+        location.replace("HomePage.html");
     } else {
         window.alert("خطأ في كلمة السر او المستخدم");
     }

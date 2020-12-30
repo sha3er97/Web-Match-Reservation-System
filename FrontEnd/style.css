@@ -102,6 +102,23 @@ input::-webkit-inner-spin-button {
     user-select: none;
     -o-user-select: none;
 }
+#active
+{
+    border: 1px solid grey;
+    background-color: #e84848;
+    border-radius: 4px;
+    font-family: "Aquatic";
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    position: relative;
+    bottom: 50px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
 
 .title {
     font-family: "Aquatic";
