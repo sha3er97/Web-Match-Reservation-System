@@ -1,3 +1,5 @@
+import "requestUtility";
+
 function addMatch(match_data) {
     //create container for list item
     $(document).ready(function () {
@@ -63,9 +65,35 @@ function addMatch(match_data) {
         })
 
     })
-}
-function loadList() {
 
+}
+
+
+function loadNextList() {
+    $(document).ready(function () {
+        $("#matches_list").empty();
+        url = "https://reqres.in/api/users?page=2"
+        sendHttpRequest('GET',url).then(
+            responseData=>
+            {
+              console.log(responseData)  
+            })
+    })
+
+    //http get request to get the next list of matches.
+    match_data = {
+        "match_id": 1,
+        "Stadium": "WE-el slam",
+        "Match_Date": "3 jun",
+        "Home_image_url": "images/ahly.png",
+        "Home_name": "Ahly",
+        "match_time": "17:00",
+        "Away_image_url": "images/ahly.png",
+        "Away_name": "Zamalk"
+    }
+    addMatch(match_data);
+    addMatch(match_data);
+    addMatch(match_data);
 }
 
 function viewMatch(elm) {
@@ -75,8 +103,7 @@ function viewMatch(elm) {
     window.document.location.href = "./match.html"
 }
 
-function getMatchDetails()
-{
+function getMatchDetails() {
     match_id = localStorage.getItem("match_id")
     console.log(match_id)
 }
