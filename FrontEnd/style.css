@@ -102,8 +102,8 @@ input::-webkit-inner-spin-button {
     user-select: none;
     -o-user-select: none;
 }
-#active
-{
+
+#active {
     border: 1px solid grey;
     background-color: #e84848;
     border-radius: 4px;
@@ -243,4 +243,10 @@ select[aria-disabled=true] {
 
 .card {
     border: none;
+}
+
+small {
+    display: block;
+    line-height: 1.428571429;
+    color: #999;
 }
