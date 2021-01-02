@@ -250,3 +250,15 @@ small {
     line-height: 1.428571429;
     color: #999;
 }
+
+table,
+th,
+td {
+    text-align: center;
+    border: 1px solid #999;
+}
+
+.link_btn {
+    font-family: "Aquatic";
+    text-shadow: 2px 2px grey;
+}
