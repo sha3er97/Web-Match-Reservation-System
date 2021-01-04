@@ -248,7 +248,7 @@ select[aria-disabled=true] {
 small {
     display: block;
     line-height: 1.428571429;
-    color: #999;
+    color: rgb(22, 97, 209);
 }
 
 table,
