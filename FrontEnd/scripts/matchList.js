@@ -1,5 +1,5 @@
-import "requestUtility";
-
+// import "./requestUtility.js";
+import {sendHttpRequest} from './requestUtility.js'
 function addMatch(match_data) {
     //create container for list item
     $(document).ready(function () {
@@ -107,3 +107,5 @@ function getMatchDetails() {
     match_id = localStorage.getItem("match_id")
     console.log(match_id)
 }
+
+loadNextList();

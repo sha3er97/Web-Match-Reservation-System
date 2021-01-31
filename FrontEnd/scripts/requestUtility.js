@@ -13,3 +13,4 @@ function sendHttpRequest(method, url,data) {
     });
     return promise
 }
+export {sendHttpRequest};
