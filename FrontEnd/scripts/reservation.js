@@ -1,7 +1,36 @@
-import "requestUtility";
+
+import {sendHttpRequest} from './requestUtility.js'
+
+function get_Match_Data(match_id)
+{
+    url = ""
+    sendHttpRequest("GET",url).then(responseData=>{
+        return responseData;
+    })
+}
+function get_Stadium_data(stadium_name)
+{
+    url = ""
+    sendHttpRequest("GET",url).then(responseData=>{
+        return responseData;
+    })
+}
+function get_seats_list(stadium_name,match_id)
+{
+    //get the seats of the stadium at this match.
+    url = ""
+    sendHttpRequest("GET",url).then(responseData=>{
+        return responseData;
+    })
+}
+function update_seat_state(stadium_name,match_id,seat_id)
+{
+    url = ""
+    sendHttpRequest("GET",url,{"id":seat_id,"state":1});
+}
 
 //get the match data and stadium data and seats of stadium states on document loded.
-match_data={"match_id":1,
+var match_data={"match_id":1,
 "Stadium" : "WE-el slam",
 "Match_Date":"2 jun",
 "Home_image_url" : "images/ahly.png",
@@ -14,10 +43,9 @@ match_data={"match_id":1,
 "lineman_2":"lineman_2"
 }
 var stadium_data = {
-    "stadium_id" : 1,
     "name":"We - el slam",
-    "rows":2,
-    "cols":12
+    "rows":4,
+    "cols":6
 }
 
 //seats state 0 for free seats and 1 for reserved seats
@@ -46,43 +74,27 @@ var seats=[{"id":0,"state":1},
 {"id":22,"state":0},
 {"id":23,"state":1}]
 
-selectedSeatId =0;
+let selectedSeatId =0;
+let match_id = localStorage.getItem("match_id")
 
-// get request to get match data and stadium data.
-$(document).ready(function() {
-    stadiumView()
-    $("button").click(function () {
-        index = $(this).text()
-        id = $(this).attr('value')
-        $("#checkConfirm").text("are you sure you want to reserve seat number "+index+" ?")
-        // check = confirm("are you sure you want to reserve seat number "+index+" ?")
-        // if(check)
-        // {
-        $(this).css("background-color", "red");
-        // }
-        selectedSeatId = id;
-        console.log($(this).attr('value'));
-    })
-});
-
-//behaviour of confirm ,, make hhtp post request
-function ConfirmClick() {
-    console.log("selected seat id is : "+selectedSeatId)
-    window.location.replace("./success.html")
-}
+// //behaviour of confirm ,, make hhtp post request
+// function ConfirmClick() {
+//     console.log("selected seat id is : "+selectedSeatId)
+//     window.location.replace("./success.html")
+// }
 function stadiumView()
 {
-    index=0
+    let index=0
     //loop on rows and coloumns to add button.
-    for(i=0;i<stadium_data["rows"];i++)
+    for(let i=0;i<stadium_data["rows"];i++)
     {
-        row = document.createElement("div")
+        let row = document.createElement("div")
         row.classList.add("row")
-        for(j=0;j<stadium_data["cols"];j++)
+        for(let j=0;j<stadium_data["cols"];j++)
         {
-            col = document.createElement("div")
+            let col = document.createElement("div")
             col.classList.add("col")            
-            button = document.createElement("button")
+            let button = document.createElement("button")
             button.classList.add("rounded-circle")
             button.setAttribute("value",seats[index]["id"])
             button.style.border="black"
@@ -102,7 +114,7 @@ function stadiumView()
             button.style.textAlign="center"
             button.style.fontSize="25px"
             button.style.fontFamily="fantasy"
-            var text = document.createTextNode(index.toString());
+            let text = document.createTextNode(index.toString());
             button.appendChild(text)
             col.append(button)
             row.appendChild(col)
@@ -112,3 +124,43 @@ function stadiumView()
     }
     console.log(document.getElementById("report-form").children)
 }
+
+
+// get request to get match data and stadium data.
+$(document).ready(function() {
+    // match_data = get_Match_Data(match_id);
+    // stadium_data = get_Stadium_data(match_data["Stadium"]); 
+    // seats = get_seats_list(stadium_data["name"],match_id);
+    stadiumView()
+    $("#myBtn").click(function(){
+        if(selectedSeatId!=-1){
+        console.log("selected seat id is : "+selectedSeatId)
+        // update_seat_state(stadium_data["name"],match_data["Stadium"],selectedSeatId);
+        window.location.replace("./success.html")
+        }
+    });
+    $("button").click(function () {
+        let index = $(this).text()
+        let id = $(this).attr('value')
+        // check = confirm("are you sure you want to reserve seat number "+index+" ?")
+        // if(check)
+        // {
+        if($(this).css("background-color")[4] == 2)
+        {
+            //255 red.
+            //toggle color and no seat is selected.
+            selectedSeatId=-1
+            $(this).css("background-color", "aquamarine"); 
+            $("#checkConfirm").text("No seat is selected.")
+          
+        }
+        else
+        {
+        $("#checkConfirm").text("are you sure you want to reserve seat number "+index+" ?")    
+        $(this).css("background-color", "red");
+        // }
+        selectedSeatId = id;
+        console.log($(this).attr('value'));
+        }
+    })
+});

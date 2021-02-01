@@ -7,8 +7,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
-    <script src="scripts/matchList.js"></script>
-    <script src="scripts/reservation.js"></script>
+    <script type="module" src="./scripts/reservation.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
@@ -107,6 +106,30 @@
                         </div>
 
                     </div>
+                    <div class="row justify-content-center">
+                        <div class="col-sm-auto">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <h1 name="lineman1_Name" style="font-size: medium;">firstlineman</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <h1 name="main_referee" style="font-size: medium;">mainRef</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <h1 name="lineman2" style="font-size: medium;">secondlineman</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,8 +147,7 @@
             <div class="row justify-content-center">
             <h5 id="checkConfirm"></h5>
         </div>
-            <button class="btn col-md-6 mx-auto btn-lg btn-block btn-primary mt-4" type="submit" id="myBtn"
-                onclick="ConfirmClick()">
+            <button class="btn col-md-6 mx-auto btn-lg btn-block btn-primary mt-4" type="submit" id="myBtn">
                 confirm
             </button>
         </div>

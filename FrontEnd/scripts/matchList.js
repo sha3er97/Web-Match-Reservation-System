@@ -1,10 +1,12 @@
 // import "./requestUtility.js";
 import {sendHttpRequest} from './requestUtility.js'
+let currentWeekNumber =0;
+
 function addMatch(match_data) {
+    // 
     //create container for list item
-    $(document).ready(function () {
-        listItem = `
-        <li value="`+ match_data["match_id"] + `" onclick="viewMatch(this)" class="list-group-item list-group-item-action">
+        let listItem = `
+        <li value="`+ match_data["match_id"] + `" id="Match_list_item" class="list-group-item list-group-item-action">
             <div class="container">
                 <div class="row justify-content-between">
                     <div class="col-sm-auto">
@@ -59,29 +61,25 @@ function addMatch(match_data) {
     </li>
     <br>
         `
-
-        $(document).ready(function () {
-            $("#matches_list").append(listItem)
-        })
-
-    })
-
+    
+    $("#matches_list").append(listItem)
+    console.log('li[value="'+match_data["match_id"]+'"]')
+    $('li[value="'+match_data["match_id"]+'"]').click(function()
+    {
+        console.log("item is clicked");
+        let value = $(this).val();
+        console.log("item with id : " + value + " is clicked")
+        localStorage.setItem("match_id", value)
+        console.log(localStorage.getItem("match_id"))
+        window.document.location.href = "./match.html"
+    });
 }
 
 
-function loadNextList() {
-    $(document).ready(function () {
-        $("#matches_list").empty();
-        url = "https://reqres.in/api/users?page=2"
-        sendHttpRequest('GET',url).then(
-            responseData=>
-            {
-              console.log(responseData)  
-            })
-    })
-
+function loadMatchesList(weekNumber) {
+    let Data ="";
     //http get request to get the next list of matches.
-    match_data = {
+    const match_data = {
         "match_id": 1,
         "Stadium": "WE-el slam",
         "Match_Date": "3 jun",
@@ -91,21 +89,44 @@ function loadNextList() {
         "Away_image_url": "images/ahly.png",
         "Away_name": "Zamalk"
     }
-    addMatch(match_data);
-    addMatch(match_data);
-    addMatch(match_data);
-}
+    $("#matches_list").empty();
+    let url = "https://reqres.in/api/users?page=2"
+    sendHttpRequest('GET',url).then(
+        responseData=>
+        {
+            Data = responseData["data"];  
+            console.log(Data)
+            for (var match in Data)
+            {
+                //addMatch(Data[match])
+                addMatch(match_data);
+            } 
+        
+        })
+    }
 
-function viewMatch(elm) {
-    console.log("item with id : " + elm.getAttribute('value') + " is clicked")
-    localStorage.setItem("match_id", elm.getAttribute('value'))
-    console.log(localStorage.getItem("match_id"))
-    window.document.location.href = "./match.html"
-}
 
-function getMatchDetails() {
-    match_id = localStorage.getItem("match_id")
-    console.log(match_id)
+function getCurrentWeek()
+{
+    //TODO
+    //get the current week from data base to fetch it. 
+    let url = "https://reqres.in/api/unknown/2"
+    sendHttpRequest('GET',url).then(
+        responseData=>
+        {
+          console.log(responseData["data"]["id"])
+          return responseData["data"]["id"]  
+        })    
 }
-
-loadNextList();
+$(document).ready(function(){
+    currentWeekNumber = getCurrentWeek()
+    loadMatchesList(currentWeekNumber)
+        
+    $("#LoadNextWeek").click(function() {
+    loadMatchesList(currentWeekNumber+1);
+    })
+    
+    $("#active").click(function() {
+        loadMatchesList(currentWeekNumber);
+        })
+})
