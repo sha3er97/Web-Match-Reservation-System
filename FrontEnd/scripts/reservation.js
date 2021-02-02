@@ -1,6 +1,7 @@
 
 import {sendHttpRequest} from './requestUtility.js'
 
+let userauth="";
 function get_Match_Data(match_id)
 {
     url = ""
@@ -34,18 +35,18 @@ var match_data={"match_id":1,
 "Stadium" : "WE-el slam",
 "Match_Date":"2 jun",
 "Home_image_url" : "images/ahly.png",
-"Home_name": "AL_Ahly",
+"Home_name": "AL Ahly",
 "match_time" : "17:00",
 "Away_image_url" :  "images/ahly.png",
-"Away_name" :"AL_Zamalk",
+"Away_name" :"AL Zamalk",
 "main_referee":"Referee name",
-"lineman_1":"lineman_1",
-"lineman_2":"lineman_2"
+"lineman_1":"firstlineman",
+"lineman_2":"secondlineman"
 }
 var stadium_data = {
     "name":"We - el slam",
     "rows":4,
-    "cols":6
+    "cols":9
 }
 
 //seats state 0 for free seats and 1 for reserved seats
@@ -72,28 +73,45 @@ var seats=[{"id":0,"state":1},
 {"id":20,"state":1},
 {"id":21,"state":1},
 {"id":22,"state":0},
-{"id":23,"state":1}]
+{"id":23,"state":1},
+{"id":24,"state":1},
+{"id":25,"state":0},
+{"id":26,"state":1},
+{"id":27,"state":1},
+{"id":28,"state":0},
+{"id":29,"state":1},
+{"id":30,"state":1},
+{"id":31,"state":0},
+{"id":32,"state":1},
+{"id":33,"state":1},
+{"id":34,"state":0},
+{"id":35,"state":1}]
+
 
 let selectedSeatId =0;
 let match_id = localStorage.getItem("match_id")
 
-// //behaviour of confirm ,, make hhtp post request
-// function ConfirmClick() {
-//     console.log("selected seat id is : "+selectedSeatId)
-//     window.location.replace("./success.html")
-// }
 function stadiumView()
 {
     let index=0
+    let table = document.createElement("table")
+    table.classList.add("table.table-responsive");
+    table.style.margin="0px auto";
+    table.style.border="none";
+    table.style.borderCollapse="collapse";
+    document.getElementById("seats").appendChild(table)
+    
     //loop on rows and coloumns to add button.
     for(let i=0;i<stadium_data["rows"];i++)
     {
-        let row = document.createElement("div")
-        row.classList.add("row")
+        let row = document.createElement("tr")
+        row.style.border="none";
+        row.style.borderCollapse="collapse";
         for(let j=0;j<stadium_data["cols"];j++)
         {
-            let col = document.createElement("div")
-            col.classList.add("col")            
+            let col = document.createElement("td")
+            col.style.border="none";
+            col.style.borderCollapse="collapse";
             let button = document.createElement("button")
             button.classList.add("rounded-circle")
             button.setAttribute("value",seats[index]["id"])
@@ -120,18 +138,122 @@ function stadiumView()
             row.appendChild(col)
             index+=1
         }
-        document.getElementById("seats").appendChild(row)
+        table.appendChild(row)
     }
     console.log(document.getElementById("report-form").children)
 }
+function view_match_data(match_data)
+{
+    $('p[name = "stadium_name"]').text(match_data["Stadium"]);
+    $('p[name = "match_date"]').text(match_data["Match_Date"]);
+    $('h1[name="Home_Name"]').text(match_data["Home_name"]);
+    $('h1[name="Match_time"]').text(match_data["match_time"]);
+    $('h1[name="Away_Name"]').text(match_data["Away_name"]);
+    $('img[name="Away_image"]').attr("src",match_data["Away_image_url"]);
+    $('img[name="Home_image"]').attr("src",match_data["Home_image_url"]);
+    $('h1[name="lineman1_Name"]').text(match_data["lineman_1"])
+    $('h1[name="lineman2_Name"]').text(match_data["lineman_2"])
+    $('h1[name="main_referee"]').text(match_data["main_referee"])
+    
+    
+}
+function logout()
+{
+    //change user auth state to false , then forward to home page.
+    userauth = false;
+    localStorage.setItem("userAuth",false);
+    window.document.location.href = "HomePage.html"
+}    
+//userauth is bool True if user is loged in ,, false if guest.
+function updateNavBar(userauth)
+{
+    console.log("user auth state is :",userauth);
+    console.log("type of userauth : ",typeof userauth);
+    if(userauth == true)
+    {
+        console.log("inside true procedure");
+        //add profile button.
+        let item = document.createElement("li");
+        item.classList.add("nav-item");
+        let link = document.createElement("a");
+        link.classList.add("nav-link");
+        link.href = "profile.html";
+        link.innerText="My Profile";
+        item.appendChild(link);
+        $("#home_profile").append(item);
 
+        //add log out button instead of login.
+        let item2 = document.createElement("li");
+        item2.classList.add("nav-item");
+        let link2 = document.createElement("a");
+        link2.classList.add("nav-link");
+        link2.addEventListener("click",function()
+        {
+            logout(userauth);
+        });
+        let span = document.createElement("span");
+        span.classList.add("fas.fa-user");
+        link2.innerText="log out";
+        link2.appendChild(span);
+        item2.appendChild(link2); 
+        $("#Navauth").append(item2);
+    }
+    else//guest
+    {
+        //add signup and login  button.
+        let item = document.createElement("li");
+        item.classList.add("nav-item");
+        let link = document.createElement("a");
+        link.classList.add("nav-link");
+        link.href = "signup.html";
+        let span = document.createElement("span");
+        span.classList.add("fas.fa-user");
+        link.innerText="Sign Up";
+        link.appendChild(span);
+        item.appendChild(link);
+        $("#Navauth").append(item);
 
+        let item2 = document.createElement("li");
+        item2.classList.add("nav-item");
+        let link2 = document.createElement("a");
+        link2.classList.add("nav-link");
+        link2.href = "signin.html";
+        let span2 = document.createElement("span");
+        span2.classList.add("fas.fa-sign-in-alt");
+        link2.innerText="Login";
+        link2.href="";
+        link2.appendChild(span2);
+        item2.appendChild(link2);
+        $("#Navauth").append(item2);
+    }
+}
 // get request to get match data and stadium data.
 $(document).ready(function() {
     // match_data = get_Match_Data(match_id);
     // stadium_data = get_Stadium_data(match_data["Stadium"]); 
     // seats = get_seats_list(stadium_data["name"],match_id);
-    stadiumView()
+    view_match_data(match_data);
+    userauth = localStorage.getItem("userAuth");
+
+    if(userauth == "true")
+    {
+        userauth=true;
+    }
+    else
+    {
+        userauth = false;
+    } 
+    console.log("user auth type is : ",userauth)
+    updateNavBar(userauth)
+    if(userauth == false)
+    {
+        //guest
+        $("#Reservation_section").hide();
+    }
+    else
+    {
+        stadiumView();
+    }
     $("#myBtn").click(function(){
         if(selectedSeatId!=-1){
         console.log("selected seat id is : "+selectedSeatId)

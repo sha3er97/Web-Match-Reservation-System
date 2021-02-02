@@ -1,12 +1,13 @@
 // import "./requestUtility.js";
 import {sendHttpRequest} from './requestUtility.js'
-let currentWeekNumber =0;
-
-function addMatch(match_data) {
-    // 
+let currentWeekNumber="";
+let userauth = true;
+let currentViewWeekNumber = "";
+function addMatch(match_data)
+ {
     //create container for list item
         let listItem = `
-        <li value="`+ match_data["match_id"] + `" id="Match_list_item" class="list-group-item list-group-item-action">
+        <li value="`+ match_data["match_id"] + `"id="Match_list_item" class="container-fluid" style="cursor: pointer; background: #E4E4E4;color: rgb(2, 11, 88);border-radius: 40px; padding: 16px; margin: 16px;">
             <div class="container">
                 <div class="row justify-content-between">
                     <div class="col-sm-auto">
@@ -77,6 +78,7 @@ function addMatch(match_data) {
 
 
 function loadMatchesList(weekNumber) {
+    $("#week_number").text("week "+weekNumber)  
     let Data ="";
     //http get request to get the next list of matches.
     const match_data = {
@@ -105,7 +107,76 @@ function loadMatchesList(weekNumber) {
         })
     }
 
+function logout()
+{
+    //change user auth state to false , then forward to home page.
+    userauth = false;
+    localStorage.setItem("userAuth",false);
+    window.document.location.href = "HomePage.html"
+}    
+//userauth is bool True if user is loged in ,, false if guest.
+function updateNavBar(userauth)
+{
+    console.log("user auth state is :",userauth);
+    console.log("type of userauth : ",typeof userauth);
+    if(userauth == true)
+    {
+        console.log("inside true procedure");
+        //add profile button.
+        let item = document.createElement("li");
+        item.classList.add("nav-item");
+        let link = document.createElement("a");
+        link.classList.add("nav-link");
+        link.href = "profile.html";
+        link.innerText="My Profile";
+        item.appendChild(link);
+        $("#home_profile").append(item);
 
+        //add log out button instead of login.
+        let item2 = document.createElement("li");
+        item2.classList.add("nav-item");
+        let link2 = document.createElement("a");
+        link2.classList.add("nav-link");
+        link2.addEventListener("click",function()
+        {
+            logout();
+        });
+        let span = document.createElement("span");
+        span.classList.add("fas.fa-user");
+        link2.innerText="log out";
+        link2.href="";
+        link2.appendChild(span);
+        item2.appendChild(link2); 
+        $("#Navauth").append(item2);
+    }
+    else//guest
+    {
+        //add signup and login  button.
+        let item = document.createElement("li");
+        item.classList.add("nav-item");
+        let link = document.createElement("a");
+        link.classList.add("nav-link");
+        link.href = "signup.html";
+        let span = document.createElement("span");
+        span.classList.add("fas.fa-user");
+        link.innerText="Sign Up";
+        link.appendChild(span);
+        item.appendChild(link);
+        $("#Navauth").append(item);
+
+        let item2 = document.createElement("li");
+        item2.classList.add("nav-item");
+        let link2 = document.createElement("a");
+        link2.classList.add("nav-link");
+        link2.href = "signin.html";
+        let span2 = document.createElement("span");
+        span2.classList.add("fas.fa-sign-in-alt");
+        link2.innerText="Login";
+        link2.appendChild(span2);
+        item2.appendChild(link2);
+        $("#Navauth").append(item2);
+    }
+}
 function getCurrentWeek()
 {
     //TODO
@@ -115,18 +186,33 @@ function getCurrentWeek()
         responseData=>
         {
           console.log(responseData["data"]["id"])
-          return responseData["data"]["id"]  
+          currentWeekNumber = responseData["data"]["id"]
+          currentWeekNumber = Number(currentWeekNumber);
+          currentViewWeekNumber = currentWeekNumber;
+          $("#week_number").text("week "+currentWeekNumber)  
         })    
 }
+
 $(document).ready(function(){
-    currentWeekNumber = getCurrentWeek()
+    userauth = localStorage.getItem("userAuth");
+    if(userauth == "true")
+    {
+        userauth=true;
+    }
+    else
+    {
+        userauth = false;
+    }
+    getCurrentWeek();
+    updateNavBar(userauth);
     loadMatchesList(currentWeekNumber)
-        
     $("#LoadNextWeek").click(function() {
-    loadMatchesList(currentWeekNumber+1);
+    currentViewWeekNumber+=1;
+    loadMatchesList(currentViewWeekNumber);
     })
     
     $("#active").click(function() {
+        currentViewWeekNumber = currentWeekNumber;    
         loadMatchesList(currentWeekNumber);
         })
 })

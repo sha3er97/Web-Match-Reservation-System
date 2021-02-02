@@ -20,26 +20,19 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./profile.html">My Profile</a>
-                    </li>
-                </ul>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul id="home_profile" class="navbar-nav">
 
-                <ul class="nav navbar-nav ml-auto">
-                    <!-- here we have to check for auth to change these two buttons -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="./signup.html"><span class="fas fa-user"></span> Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./signin.html"><span class="fas fa-sign-in-alt"></span> Login</a>
-                    </li>
-                </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="HomePage.html">Home</a>
+                        </li>
+
+                    </ul>
+
+                    <ul id="Navauth" class="nav navbar-nav ml-auto">
+                    </ul>
+                </div>
             </div>
-        </div>
     </nav>
 
     <div class="container">
@@ -47,116 +40,119 @@
         <div class="title">
             <h1>Egyptian Premier League Match Reservation</h1>
         </div><br /><br />
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="head">
-                    <div class="row justify-content-between">
-                        <div class="col-sm-auto">
-                            <div class="container">
-                                <div class="row justify-content-center"><img src="images/stadium.png" class="rounded"
-                                        height="25px" width="25px" alt="..."></div>
-                                <div class="row justify-content-center">
-                                    <p style="font-family: fantasy;">We-El slam</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-auto">
-                            <div class="container">
-                                <div class="row justify-content-center"><img src="images/calendar.png" class="rounded"
-                                        height="25px" width="25px" alt="..."></div>
-                                <div class="row justify-content-center">
-                                    <p style="font-family: fantasy;">2 Jun</p>
-                                </div>
-                            </div>
+        <div class="container-fluid"
+            style="background: #E4E4E4;color: rgb(2, 11, 88);border-radius: 40px; padding: 16px; margin: 16px;">
+            <!-- <div class="row justify-content-center">
+                <div class="head"> -->
+            <div class="row justify-content-between">
+                <div class="col-md-auto">
+                    <div class="container" style="padding-left: 16px;">
+                        <div class="row justify-content-center"><img src="images/stadium.png" class="rounded"
+                                height="25px" width="25px" alt="..."></div>
+                        <div class="row justify-content-center">
+                            <p style="font-family: fantasy;" name="stadium_name">We-El slam</p>
                         </div>
                     </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-auto">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <img name="Home_image" src="images/ahly.png" class="rounded" height="100px"
-                                        width="100px">
-                                </div>
-                                <div class="row justify-content-center">
-                                    <h1 name="Home_Name">Al Ahly</h1>
-                                </div>
-                            </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="container" style="padding-right: 16px;">
+                        <div class="row justify-content-center"><img src="images/calendar.png" class="rounded"
+                                height="25px" width="25px" alt="..."></div>
+                        <div class="row justify-content-center">
+                            <p style="font-family: fantasy;" name="match_date">2 Jun</p>
                         </div>
-                        <div class="col-sm-auto">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <img src="images/time.png" class="rounded" height="50px" width="50px">
-                                </div>
-                                <div class="row justify-content-center">
-                                    <h1 name="Match_time" style="font-family: fantasy;">17:00</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-auto">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <img name="Away_image" src="images/ahly.png" class="rounded" height="100px"
-                                        width="100px">
-                                </div>
-                                <div class="row justify-content-center">
-                                    <h1 name="Away_Name">Al Ahly</h1>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-sm-auto">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <h1 name="lineman1_Name" style="font-size: medium;">firstlineman</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-auto">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <h1 name="main_referee" style="font-size: medium;">mainRef</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-auto">
-                            <div class="container">
-                                <div class="row justify-content-center">
-                                    <h1 name="lineman2" style="font-size: medium;">secondlineman</h1>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br>
-    <br>
-    <div class="row justify-content-center">
-        <h1 class="head shadow">Reserve Seat</h1>
-    </div>
-    <div class="row justify-content-center">
-        <div id="report-form" class="container-fluid" style="margin: 30px; padding: 10px;" novalidate>
-            <div class="container" style="align-content: center;align-self: center;" id="seats"></div>
-            <br>
 
             <div class="row justify-content-center">
-            <h5 id="checkConfirm"></h5>
-        </div>
-            <button class="btn col-md-6 mx-auto btn-lg btn-block btn-primary mt-4" type="submit" id="myBtn">
-                confirm
-            </button>
-        </div>
+                <div class="col-md-auto">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <img name="Home_image" src="images/ahly.png" style="padding-left: 16px; " class="rounded"
+                                height="150px" width="150px">
+                        </div>
+                        <div class="row justify-content-center">
+                            <h1 name="Home_Name">Al Ahly</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto ">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <img src="images/time.png" class="rounded" height="50px" width="50px">
+                        </div>
+                        <div class="row justify-content-center">
+                            <h1 name="Match_time" style="font-family: fantasy;">17:00</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <img name="Away_image" src="images/ahly.png" style=" padding-left: 16px; " class="rounded"
+                                height="150px" width="150px">
+                        </div>
+                        <div class="row justify-content-center">
+                            <h1 name="Away_Name">Al Ahly</h1>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-auto">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <h1 name="lineman1_Name" style="font-size: medium;">firstlineman</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <h1 name="main_referee" style="font-size: medium;">mainRef</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <h1 name="lineman2" style="font-size: medium;">secondlineman</h1>
+                        </div>
+                    </div>
+                </div>
 
+            </div>
+            <!-- </div>
+            </div> -->
+        </div>
     </div>
     <br>
     <br>
+    <div id="Reservation_section">
+        <div class="row justify-content-center">
+            <h1 class="head shadow">Reserve Seat</h1>
+        </div>
+        <div class="row justify-content-center">
+            <div id="report-form" class="container-fluid" style="margin-left: 50px; margin-right: 50px; padding:16px;"
+                novalidate>
+                <div class="col-auto" style="align-content: center;align-self: center;" id="seats"></div>
+                <br>
 
+                <div class="row justify-content-center">
+                    <h5 id="checkConfirm"></h5>
+                </div>
+                <button class="btn col-md-6 mx-auto btn-lg btn-block btn-primary mt-4" type="submit" id="myBtn">
+                    confirm
+                </button>
+            </div>
+
+
+        </div>
+        <br>
+        <br>
+    </div>
 
 </body>
 
