@@ -262,3 +262,11 @@ td {
     font-family: "Aquatic";
     text-shadow: 2px 2px grey;
 }
+
+.styled-input {
+    font-family: 'normal';
+    border: none;
+    text-align: center;
+    margin: auto;
+    color: rgb(2, 11, 88);
+}

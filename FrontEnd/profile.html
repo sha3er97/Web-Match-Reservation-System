@@ -30,7 +30,7 @@
                     <div class="well well-sm">
                         <div class="row">
                             <div class="col-md">
-                                <h2 class="col" id="name"><b>John Doe</b></h2>
+                                <input class="col styled-input" id="name" value="John Doe"><b></b>
 
                                 <small class="col ">
                                         <p id="verification "> 
@@ -44,6 +44,7 @@
                                         <i class="fas fa-user col "></i>
                                     </div>
                                     <p id="username "> John97</p>
+
                                 </div>
 
                                 <div class="input-group ">
@@ -52,36 +53,45 @@
                                     </div>
                                     <p id="role "> Manager</p>
                                 </div>
-
-                                <div class="input-group ">
-                                    <div class="input-group-addon ">
-                                        <i class="fas fa-map-marker-alt col "></i>
-                                    </div>
-                                    <p id="address_city "> 7 Tahrir Square, Cairo</p>
-                                </div>
                                 <div class="input-group ">
                                     <div class="input-group-addon ">
                                         <i class="fas fa-venus-mars col "></i>
                                     </div>
                                     <p id="gender "> Male</p>
                                 </div>
+                                <div class="input-group ">
+                                    <div class="input-group-addon ">
+                                        <i class="fas fa-map-marker-alt col "></i>
+                                    </div>
+                                    <!-- <p id="address_city "> 7 Tahrir Square, Cairo</p> -->
+                                    <input type="text" class="styled-input" lang=" en " id="address_city " required value="7 Tahrir Square, Cairo ">
+
+                                </div>
+                                </br>
 
                                 <div class="input-group ">
                                     <div class="input-group-addon ">
                                         <i class="fa fa-envelope-o col "></i>
                                     </div>
-                                    <p id="email "> email@example.com</p>
+                                    <!--<p id="email ">email@example.com</p>-->
+                                    <input type="email" class="styled-input" lang=" en " id="email " required value="email@example.com ">
                                 </div>
-
+                                </br>
                                 <div class="input-group ">
                                     <div class="input-group-addon ">
                                         <i class="fas fa-birthday-cake col "></i> </div>
-                                    <p id="birth_date "> June 02, 1988</p>
+                                    <!--<p id="birth_date "> June 02, 1988</p>-->
+
+                                    <input type="date" class="styled-input" lang=" en " id="birth_date " required value="2013-01-08 ">
+
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="login-footer md-5 mt-3 ">
+                    <a class="btn btn-info link_btn " href="HomePage.html ">My tickets</a>
                 </div>
             </form>
         </div>
