@@ -228,7 +228,7 @@ select[aria-disabled=true] {
 
 .blue-gradient {
     background: rgb(44, 211, 245);
-    background: linear-gradient( 90deg, rgba(44, 211, 245, 1) 4%, rgba(17, 70, 87, 1) 70%);
+    background: linear-gradient(90deg, rgba(44, 211, 245, 1) 4%, rgba(17, 70, 87, 1) 70%);
 }
 
 .orange-gradient {
