@@ -18,6 +18,7 @@ submit.addEventListener("click", (e) => {
         }
     }
     if (flag == true) {
+        localStorage.setItem("userAuth",true);
         location.replace("HomePage.html");
     } else {
         window.alert("خطأ في كلمة السر او المستخدم");
