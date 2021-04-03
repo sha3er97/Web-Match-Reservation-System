@@ -14,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    
+    Route::post('/approvePendingUser', 'AdminController@approvePendingUser');
+    Route::post('/rejectPendingUser', 'AdminController@rejectPendingUser');
+    Route::get('/getAllPendingUsers', 'AdminController@getAllPendingUsers');
+    Route::post('/removeUser', 'AdminController@removeUser');
+    Route::get('/getAllUser', 'AdminController@getAllUser');
+
+    Route::post('/signIn', 'AuthenticationController@signIn');
+    Route::post('/signUp', 'AuthenticationController@signUp');
+
+    Route::patch('/editUserData', 'UserController@editUserData');
+
+
 });
+
+
