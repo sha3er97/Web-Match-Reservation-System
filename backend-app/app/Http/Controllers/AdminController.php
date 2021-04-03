@@ -21,7 +21,7 @@ class AdminController extends Controller
     
     public function approvePendingUser (Request $request) {
         $user = PendingUser::getPendingUserByUsername($request->username);
-        PendingUSer::removePendingUserByUsername($request->username);
+        PendingUser::removePendingUserByUsername($request->username);
         return User::addUser($user->username, $user->password, $user->firstname, $user->lastname, $user->birthdate, $user->gender, $user->city, $user->address, $user->email, $user->role) ;
     }
 
@@ -36,7 +36,7 @@ class AdminController extends Controller
 
     
     public function rejectPendingUser (Request $request) {
-        return PendingUSer::rejectPendingUserByUsername($request->username);
+        return PendingUser::rejectPendingUserByUsername($request->username);
     }
 
      /*
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
     
     public function getAllPendingUsers (Request $request) {
-        return PendingUSer::getAllPendingUsers();
+        return PendingUser::getAllPendingUsers();
     }
 
     /*
@@ -58,12 +58,25 @@ class AdminController extends Controller
     parameter: none
 
     response: boolean 
-     
+      */
 
     
     public function removeUser (Request $request) {
-        return PendingUSer::getAllPendingUsers();
+        return User::getAllPendingUsers();
     }
-    */
+   
+
+    /*
+    funcitonality: get all current users
+
+    parameter: none
+
+    response: boolean 
+      */
+
+    
+      public function getAllUser (Request $request) {
+        return User::getAllUsers();
+    }
 
 }
