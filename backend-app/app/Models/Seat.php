@@ -70,5 +70,23 @@ class Seat extends Model
         return DB::table('seats')->where('id', $seatID)->delete();
     }
 
+        /*
+    funcitonality:delete reserved seat from match
+
+    parameter: seat id
+
+    response: delete seat from databes
+     */
+
+    public function getuserseats ($username) {
+
+
+        $sentmessages = DB::select(" select *
+                from seats as s, Match_ as m
+                where (s.match=m.id and s.user='$username')");
+        return  $sentmessages;
+
+    }
+
 
 }

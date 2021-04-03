@@ -45,4 +45,16 @@ class seatController extends Controller
         return seat::cancelReservation ($request->id);
     }
 
+    /*
+    funcitonality: cancel seat reservation
+
+    parameter: request have cancel seat ID
+
+    response: bool
+     */
+   
+    public function seatsOfUser (Request $username) {
+        return seat::cancelReservation ($request->username);
+    }
+
 }
