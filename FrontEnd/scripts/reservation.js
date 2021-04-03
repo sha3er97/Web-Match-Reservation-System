@@ -1,7 +1,12 @@
 
 import {sendHttpRequest} from './requestUtility.js'
+let seats_map = new Map()
+let userauth = localStorage.getItem("userAuth");;
+let prevButton = -1;
+let userID = localStorage.getItem("userID");
+let selectedSeatId =0;
+let match_id = localStorage.getItem("match_id")
 
-let userauth="";
 function get_Match_Data(match_id)
 {
     url = ""
@@ -13,22 +18,37 @@ function get_Stadium_data(stadium_name)
 {
     url = ""
     sendHttpRequest("GET",url).then(responseData=>{
-        return responseData;
+        return responseData["Data"];
     })
 }
-function get_seats_list(stadium_name,match_id)
+function get_seats_list(match_id)
 {
     //get the seats of the stadium at this match.
     url = ""
     sendHttpRequest("GET",url).then(responseData=>{
-        return responseData;
+        for (seat in  responseData["Data"])
+        {
+            //make composite key : "row,col"
+            seats_map[seat["row"].toString()+","+seat["col"].toString()] = seat["state"]
+        }
     })
 }
-function update_seat_state(stadium_name,match_id,seat_id)
+function update_seat_state(stadium_name,match_id,seat_row,seat_col)
 {
     url = ""
-    sendHttpRequest("GET",url,{"id":seat_id,"state":1});
+    sendHttpRequest("POST",url,{user_id:userID,stadium_name:stadium_name,match_id:match_id,row:seat_row,col:seat_col,state:1}).then(responseData=>
+        {
+            if(responseData["state"] == "success")
+            {
+                window.location.replace("./success.html")
+            }
+            else
+            {
+                window.location.replace("./homepage.html")
+            }
+        })
 }
+
 
 //get the match data and stadium data and seats of stadium states on document loded.
 var match_data={"match_id":1,
@@ -88,8 +108,8 @@ var seats=[{"id":0,"state":1},
 {"id":35,"state":1}]
 
 
-let selectedSeatId =0;
-let match_id = localStorage.getItem("match_id")
+
+
 
 function stadiumView()
 {
@@ -114,19 +134,38 @@ function stadiumView()
             col.style.borderCollapse="collapse";
             let button = document.createElement("button")
             button.classList.add("rounded-circle")
-            button.setAttribute("value",seats[index]["id"])
+            button.setAttribute("value",i.toString()+","+j.toString())
             button.style.border="black"
             button.style.borderStyle="solid"
             button.style.width="50px"
             button.style.height="50px"
+            
             if(seats[index]["state"]==1)
             {
                 button.style.backgroundColor="grey"
                 button.disabled = true;
             }
-            else{
-            button.style.backgroundColor="aquamarine"
-            
+            else
+            {
+                button.style.backgroundColor="aquamarine"
+                if(userauth == false)
+                {   
+                    button.disabled = true;
+                }
+            }
+            //using seats map    if key is exist then the seat is reserved.
+            if(seats.has(i.toString()+","+j.toString()))
+            {
+                button.style.backgroundColor="grey"
+                button.disabled = true;
+            }
+            else
+            {
+                button.style.backgroundColor="aquamarine"
+                if(userauth == false)
+                {   
+                    button.disabled = true;
+                }
             }
             
             button.style.textAlign="center"
@@ -181,6 +220,15 @@ function updateNavBar(userauth)
         link.innerText="My Profile";
         item.appendChild(link);
         $("#home_profile").append(item);
+        //add My Tickets button.
+        item = document.createElement("li");
+        item.classList.add("nav-item");
+        link = document.createElement("a");
+        link.classList.add("nav-link");
+        link.href = "Tickets.html";
+        link.innerText="My tickets";
+        item.appendChild(link);
+        $("#home_profile").append(item);
 
         //add log out button instead of login.
         let item2 = document.createElement("li");
@@ -221,7 +269,7 @@ function updateNavBar(userauth)
         let span2 = document.createElement("span");
         span2.classList.add("fas.fa-sign-in-alt");
         link2.innerText="Login";
-        link2.href="";
+        link2.href="signin.html";
         link2.appendChild(span2);
         item2.appendChild(link2);
         $("#Navauth").append(item2);
@@ -229,11 +277,11 @@ function updateNavBar(userauth)
 }
 // get request to get match data and stadium data.
 $(document).ready(function() {
+
     // match_data = get_Match_Data(match_id);
     // stadium_data = get_Stadium_data(match_data["Stadium"]); 
-    // seats = get_seats_list(stadium_data["name"],match_id);
+    // seats = get_seats_list(match_id);
     view_match_data(match_data);
-    userauth = localStorage.getItem("userAuth");
 
     if(userauth == "true")
     {
@@ -245,19 +293,29 @@ $(document).ready(function() {
     } 
     console.log("user auth type is : ",userauth)
     updateNavBar(userauth)
+    
     if(userauth == false)
     {
         //guest
-        $("#Reservation_section").hide();
+        // $("#Reservation_section").hide();
+        stadiumView();
+        $("#Confirmation_section").hide();
+        // $("#myBtn").hide();
+        
     }
-    else
-    {
+    else{
         stadiumView();
     }
+    
     $("#myBtn").click(function(){
         if(selectedSeatId!=-1){
         console.log("selected seat id is : "+selectedSeatId)
         // update_seat_state(stadium_data["name"],match_data["Stadium"],selectedSeatId);
+        //TODO Post request.
+        comma = selectedSeatId.indexOf(',')
+        seat_row = Number(selectedSeatId.slice(0,comma))
+        seat_col = Number(selectedSeatId.slice(comma,selectedSeatId.lenght()))  
+        // update_seat_state(stadium_data["name"],match_id,seat_row,seat_col);
         window.location.replace("./success.html")
         }
     });
@@ -282,6 +340,11 @@ $(document).ready(function() {
         $(this).css("background-color", "red");
         // }
         selectedSeatId = id;
+        if(prevButton !=-1)
+        {
+            $("button[value = "+prevButton.toString()+"]").css("background-color", "aquamarine");
+        }
+        prevButton = id;
         console.log($(this).attr('value'));
         }
     })
