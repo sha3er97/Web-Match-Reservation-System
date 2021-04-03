@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>EPL|Tickets</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+        <script type="module" src="./scripts/matchList.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script type="module" src="./scripts/ticketsfunctions.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <br />
+            <div class="title">
+                <h1> My Tickets </h1>
+            </div><br />
+            <div class="row justify-content-center">
+    
+                <table style="width:100%" id="pending_table" class="table table-dark .table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>MatchTeam1</th>
+                            <th>MatchTeam2</th>
+                            <th>MatchDate</th>
+                            <th>MatchTime</th>
+                            <th>stadium</th>
+                            <th>seatID</th>
+                            <th>Remove ?</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tickets">
+                        
+                        <tr>
+                            <td>1</td>
+                            <td>AlAhly</td>
+                            <td>ElZamalak</td>
+                            <td>2 jun</td>
+                            <td>19:00</td>
+                            <td>we-elsalam</td>
+                            <td>5</td>
+                            <td><button class="btn btn-danger">Cancel</button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+    
+</html>

@@ -23,12 +23,28 @@ class Match_ extends Model
     response: list of matches - could be empty
      */
 
-    public function getMatches (Request $request) {
+    public function getMatches () {
 
-        $matches = DB::select(" select *
-            from matches");
+        $matches = DB::table('matches')->get();
+        return $matches;
 
     }
+
+        /*
+    funcitonality: get data of specific match
+    parameter: match id
+
+    response: match data
+     */
+
+    public function getMatchdata ($matchid) {
+
+        $match = DB::table('matches')->where('id',$matchid)->get();
+
+        return $match;
+
+    }
+
 
     /*
     functionality: check if a match exists
@@ -41,6 +57,7 @@ class Match_ extends Model
     public function matchExists ($id) {
 
         return self::where('id', $id)->exists();
+
 
     }
 
@@ -85,7 +102,8 @@ class Match_ extends Model
     /*
     funcitonality: create a matches in the database
 
-    parameter: int 'id'
+    parameter: request carry 
+                int 'id'
                 int  'home', 
                 int  'away'
                 string 'stadium'
@@ -98,7 +116,7 @@ class Match_ extends Model
      */
     public function createMatch (Request $request) {
 
-        return self::create(['home' => $request->home,
+        return DB::table('matches')->insert(['home' => $request->home,
         'away'  => $request->away,
         'stadium' => $request->stadium,
         'date' => $request->date,
@@ -106,19 +124,6 @@ class Match_ extends Model
         'main_referee' => $request->main_referee,
         'lineman_1' => $request->lineman_1,
         'lineman_2' => $request->lineman_2,]);
-        
-        DB::table('matches')
-            ->where('id', $request->id)
-            ->update(['home' => $request->home,
-                        'away'  => $request->away,
-                        'stadium' => $request->stadium,
-                        'date' => $request->date,
-                        'time' => $request->time,
-                        'main_referee' => $request->main_referee,
-                        'lineman_1' => $request->lineman_1,
-                        'lineman_2' => $request->lineman_2]
-                    );
-
 
     }
 
