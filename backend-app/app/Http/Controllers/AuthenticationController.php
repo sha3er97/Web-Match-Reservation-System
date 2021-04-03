@@ -35,6 +35,7 @@ class AuthenticationController extends Controller
      * 	"success": "false",
      * 	"error": "Invalid or some data missed"
      * }
+     *
      */
     public function signIn(Request $request)
     {
