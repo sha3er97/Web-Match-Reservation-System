@@ -96,4 +96,27 @@ class User extends Authenticatable
     public function removeUserByUsername ($username) {
         return DB::table('users')->where('username', $username)->delete();
     }
+
+    /*
+    funcitonality: edit data of specific user
+
+    parameter: all table attributes
+
+    response: bool
+     */
+
+    
+    public function editUserByUsername ($username, $password, $firstname, $lastname, $birthdate, $gender, $city, $address, $email, $role){
+        return DB::table('users')
+                    ->where('username', $username)
+                    ->update(['password' => $password,
+                               'fistname' => $firstname,
+                               'lastname' => $lastname,
+                               'birthdate' => $birthdate,
+                               'gender' =>$gender,
+                               'city' => $city,
+                               'address' => $address,
+                               'email' => $email,
+                               'role' => $role ]);
+    }
 }
