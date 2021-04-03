@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     background-image: linear-gradient(rgb(0, 0, 0, 0.1), rgb(2, 11, 88)), url(images/background.jpg);
     background-repeat: no-repeat;
@@ -261,4 +262,277 @@ td {
 .link_btn {
     font-family: "Aquatic";
     text-shadow: 2px 2px grey;
+=======
+body {
+    background-image: linear-gradient(rgb(0, 0, 0, 0.1), rgb(2, 11, 88)), url(images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+html {
+    min-height: 100%;
+}
+
+@font-face {
+    font-family: 'Aquatic';
+    src: url('fonts/Aquatic-PersonalUse.otf');
+}
+
+.btn-group-toggle {
+    text-align: left;
+}
+
+.btn .btn-primary .active {
+    background-color: black;
+    color: pink;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#report-form {
+    background: #E4E4E4;
+    color: rgb(2, 11, 88);
+    border-radius: 40px;
+}
+
+#report-form input,
+#report-form select {
+    border-radius: 40px;
+}
+
+#report-form label {
+    margin-right: 10px;
+}
+
+#myBtn {
+    border-radius: 40px;
+    font-family: "Aquatic";
+    border: none;
+    background-color: #E81A1C;
+}
+
+#myBtn:hover {
+    background-color: #48E873;
+    font-family: "Aquatic";
+    transition: .3s;
+    color: rgb(2, 11, 88);
+}
+
+#success_btn {
+    border-radius: 40px;
+    font-family: "Aquatic";
+    border: none;
+    color: white;
+    background-color: #E81A1C;
+}
+
+#success_btn:hover {
+    background-color: #48E873;
+    font-family: "Aquatic";
+    transition: .3s;
+    color: rgb(2, 11, 88);
+}
+
+#login {
+    background-color: rgb(88, 245, 88);
+    color: black
+}
+
+#login:hover {
+    background-color: #E81A1C;
+    transition: .3s;
+    color: white;
+}
+
+.head {
+    border: 1px solid grey;
+    background-color: #48E873;
+    border-radius: 4px;
+    font-family: "Aquatic";
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    position: relative;
+    bottom: 50px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+#active {
+    border: 1px solid grey;
+    background-color: #e84848;
+    border-radius: 4px;
+    font-family: "Aquatic";
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
+    position: relative;
+    bottom: 50px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -o-user-select: none;
+}
+
+.title {
+    font-family: "Aquatic";
+    text-shadow: 2px 2px #ff0000;
+    font-style: normal;
+    font-variant: normal;
+    text-align: center;
+    color: black;
+}
+
+.declaration {
+    color: white;
+    text-align: center;
+}
+
+
+/* Some style for Select */
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url(images/darrow.png);
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+    text-indent: 15px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select:hover {
+    border-color: #888;
+}
+
+select:focus {
+    border-color: #aaa;
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none;
+}
+
+select option {
+    font-weight: normal;
+}
+
+
+/* Disabled styles */
+
+select:disabled,
+select[aria-disabled=true] {
+    color: gray;
+    background-image: url(images/darrow.png), linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+}
+
+select:disabled:hover,
+select[aria-disabled=true] {
+    border-color: #aaa;
+}
+
+.login-footer {
+    text-align: center;
+}
+
+#thanks {
+    text-align: center;
+    margin: auto;
+    line-height: 80%;
+    background-color: #e0e0e0;
+    width: 400px;
+    box-shadow: 1px 1px 3px rgb(255, 255, 255);
+    border-radius: 50px;
+    margin-bottom: 200px;
+    margin-top: 100px;
+}
+
+#thanks h3 {
+    font-family: 'Aquatic';
+    color: rgb(2, 11, 88);
+    text-shadow: 2px 2px #48E873;
+}
+
+#new-report {
+    background: #48E873;
+    color: rgb(2, 11, 88);
+    font-weight: bold;
+}
+
+#new-report:hover {
+    background-color: #E81A1C;
+    color: white;
+    transition: 0.3s;
+}
+
+.footer a:hover {
+    text-decoration: none;
+}
+
+.navbar-nav .nav-item .nav-link {
+    border-radius: 20px;
+    padding: 10px 30px 10px 30px;
+    color: white;
+}
+
+.blue-gradient {
+    background: rgb(44, 211, 245);
+    background: linear-gradient(90deg, rgba(44, 211, 245, 1) 4%, rgba(17, 70, 87, 1) 70%);
+}
+
+.orange-gradient {
+    background: rgb(245, 219, 44);
+    background: linear-gradient(90deg, rgba(245, 219, 44, 1) 2%, rgba(250, 109, 0, 1) 90%);
+}
+
+.pink-gradient {
+    background: rgb(255, 0, 138);
+    background: linear-gradient(90deg, rgba(255, 0, 138, 1) 0%, rgba(255, 0, 138, 1) 3%, rgba(255, 94, 173, 1) 100%);
+}
+
+.card {
+    border: none;
+}
+
+small {
+    display: block;
+    line-height: 1.428571429;
+    color: rgb(22, 97, 209);
+}
+
+table,
+th,
+td {
+    text-align: center;
+    border: 1px solid #999;
+}
+
+.link_btn {
+    font-family: "Aquatic";
+    text-shadow: 2px 2px grey;
+}
+
+.styled-input {
+    font-family: 'normal';
+    border: none;
+    text-align: center;
+    margin: auto;
+    color: rgb(2, 11, 88);
+>>>>>>> 64e074feb21bb6f6f11c779d7f47152bd51307ba
 }
