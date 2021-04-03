@@ -1,8 +1,7 @@
 // import "./requestUtility.js";
 import {sendHttpRequest} from './requestUtility.js'
-let currentWeekNumber="";
+let nextCount=0;
 let userauth = true;
-let currentViewWeekNumber = "";
 function addMatch(match_data)
  {
     //create container for list item
@@ -78,7 +77,7 @@ function addMatch(match_data)
 
 
 function loadMatchesList(weekNumber) {
-    $("#week_number").text("week "+weekNumber)  
+    // $("#week_number").text("week "+weekNumber)  
     let Data ="";
     //http get request to get the next list of matches.
     const match_data = {
@@ -96,7 +95,8 @@ function loadMatchesList(weekNumber) {
     sendHttpRequest('GET',url).then(
         responseData=>
         {
-            Data = responseData["data"];  
+            Data = responseData["data"];
+            Data = Data.slice(weekNumber*9,(weekNumber+1)*9)  
             console.log(Data)
             for (var match in Data)
             {
@@ -129,6 +129,16 @@ function updateNavBar(userauth)
         link.classList.add("nav-link");
         link.href = "profile.html";
         link.innerText="My Profile";
+        item.appendChild(link);
+        $("#home_profile").append(item);
+
+        //add My Tickets button.
+        item = document.createElement("li");
+        item.classList.add("nav-item");
+        link = document.createElement("a");
+        link.classList.add("nav-link");
+        link.href = "Tickets.html";
+        link.innerText="My tickets";
         item.appendChild(link);
         $("#home_profile").append(item);
 
@@ -177,21 +187,6 @@ function updateNavBar(userauth)
         $("#Navauth").append(item2);
     }
 }
-function getCurrentWeek()
-{
-    //TODO
-    //get the current week from data base to fetch it. 
-    let url = "https://reqres.in/api/unknown/2"
-    sendHttpRequest('GET',url).then(
-        responseData=>
-        {
-          console.log(responseData["data"]["id"])
-          currentWeekNumber = responseData["data"]["id"]
-          currentWeekNumber = Number(currentWeekNumber);
-          currentViewWeekNumber = currentWeekNumber;
-          $("#week_number").text("week "+currentWeekNumber)  
-        })    
-}
 
 $(document).ready(function(){
     userauth = localStorage.getItem("userAuth");
@@ -203,16 +198,15 @@ $(document).ready(function(){
     {
         userauth = false;
     }
-    getCurrentWeek();
     updateNavBar(userauth);
-    loadMatchesList(currentWeekNumber)
+    loadMatchesList(nextCount)
     $("#LoadNextWeek").click(function() {
-    currentViewWeekNumber+=1;
-    loadMatchesList(currentViewWeekNumber);
+    nextCount+=1;
+    loadMatchesList(nextCount);
     })
     
     $("#active").click(function() {
-        currentViewWeekNumber = currentWeekNumber;    
-        loadMatchesList(currentWeekNumber);
+        nextCount = 0;    
+        loadMatchesList(nextCount);
         })
 })
