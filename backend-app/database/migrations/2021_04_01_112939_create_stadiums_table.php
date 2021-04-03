@@ -14,8 +14,14 @@ class CreateStadiumsTable extends Migration
     public function up()
     {
         Schema::create('stadiums', function (Blueprint $table) {
-            $table->id();
+            $table->string('name');
+            $table->integer('number_of_rows');
+            $table->integer('number_of_columns');
+
             $table->timestamps();
+
+            //restrictions
+            $table->primary('name');
         });
     }
 

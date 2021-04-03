@@ -14,10 +14,22 @@ class CreatePendingUsersTable extends Migration
     public function up()
     {
         Schema::create('pending_users', function (Blueprint $table) {
-            $table->id();
+            $table->string('username');
+            $table->string('password');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->date('birthdate');
+            $table->boolean('gender'); // 0-> male 1-> female
+            $table->string('city');
+            $table->string('address');
+            $table->string('email')->unique();
+            
+            $table->rememberToken();
             $table->timestamps();
-        });
-    }
+
+            // restrictions
+            $table->primary('username');
+        });    }
 
     /**
      * Reverse the migrations.
