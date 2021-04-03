@@ -19,6 +19,8 @@ submit.addEventListener("click", (e) => {
     }
     if (flag == true) {
         localStorage.setItem("userAuth",true);
+        //TODO post request and get the state with user id.
+        localStorage.setItem("userID",1)
         location.replace("HomePage.html");
     } else {
         window.alert("خطأ في كلمة السر او المستخدم");

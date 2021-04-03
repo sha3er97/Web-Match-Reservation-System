@@ -1,6 +1,7 @@
 import { sendHttpRequest } from './requestUtility.js'
 //key is seatID which is  unique , value is reservation dictionary. 
 let Reservation_map = new Map()
+let userID = localStorage.getItem("userID");
 function loadMyTickets(i, reservation) {
 
     let tr = document.createElement("tr")
@@ -49,6 +50,7 @@ let reservation_test = {
 };
 
 function get_Reservation() {
+    //url contain userid to get the reservations of this user.
     let url = "https://reqres.in/api/users?page=2"
     sendHttpRequest('GET', url).then(
         responseData => {
@@ -72,7 +74,7 @@ $(document).ready(function () {
         let ID = $(this).attr('value')
         var reservation = Reservation_map[String(ID)]
         let url = ""
-        sendHttpRequest('POST', url,{seat_id:reservation["Seat_ID"],stadium:reservation["stadium"],Match_time:reservation["Match_time"]}).then(
+        sendHttpRequest('POST', url,{user_id:userID,seat_id:reservation["Seat_ID"],stadium:reservation["stadium"],Match_time:reservation["Match_time"]}).then(
             responseData => {
                 let state = responseData["state"];
                 console.log(state)

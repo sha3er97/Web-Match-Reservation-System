@@ -1,8 +1,12 @@
 
 import {sendHttpRequest} from './requestUtility.js'
 let seats_map = new Map()
-let userauth="";
+let userauth = localStorage.getItem("userAuth");;
 let prevButton = -1;
+let userID = localStorage.getItem("userID");
+let selectedSeatId =0;
+let match_id = localStorage.getItem("match_id")
+
 function get_Match_Data(match_id)
 {
     url = ""
@@ -14,10 +18,10 @@ function get_Stadium_data(stadium_name)
 {
     url = ""
     sendHttpRequest("GET",url).then(responseData=>{
-        return responseData;
+        return responseData["Data"];
     })
 }
-function get_seats_list(stadium_name,match_id)
+function get_seats_list(match_id)
 {
     //get the seats of the stadium at this match.
     url = ""
@@ -32,7 +36,7 @@ function get_seats_list(stadium_name,match_id)
 function update_seat_state(stadium_name,match_id,seat_row,seat_col)
 {
     url = ""
-    sendHttpRequest("POST",url,{stadium_name:stadium_name,match_id:match_id,row:seat_row,col:seat_col,state:1}).then(responseData=>
+    sendHttpRequest("POST",url,{user_id:userID,stadium_name:stadium_name,match_id:match_id,row:seat_row,col:seat_col,state:1}).then(responseData=>
         {
             if(responseData["state"] == "success")
             {
@@ -105,8 +109,7 @@ var seats=[{"id":0,"state":1},
 
 
 
-let selectedSeatId =0;
-let match_id = localStorage.getItem("match_id")
+
 
 function stadiumView()
 {
@@ -277,9 +280,8 @@ $(document).ready(function() {
 
     // match_data = get_Match_Data(match_id);
     // stadium_data = get_Stadium_data(match_data["Stadium"]); 
-    // seats = get_seats_list(stadium_data["name"],match_id);
+    // seats = get_seats_list(match_id);
     view_match_data(match_data);
-    userauth = localStorage.getItem("userAuth");
 
     if(userauth == "true")
     {
