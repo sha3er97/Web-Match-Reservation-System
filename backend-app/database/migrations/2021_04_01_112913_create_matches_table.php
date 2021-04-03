@@ -15,8 +15,8 @@ class CreateMatchesTable extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->bigIncrements('id'); // primary key
-            $table->bigInteger('home')->references('number')->on('teams')->onUpdate('cascade')->onDelete('cascade');
-            $table->bigInteger('away')->references('number')->on('teams')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('home');
+            $table->bigInteger('away');
             $table->string('stadium')->references('name')->on('stadia')->onUpdate('cascade')->onDelete('cascade');
             $table->date('match_date');
             $table->dateTime('match_time');
