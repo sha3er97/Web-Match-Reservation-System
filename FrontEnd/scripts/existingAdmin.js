@@ -1,5 +1,7 @@
 import {sendHttpRequest} from './requestUtility.js'
 
+let User_map = new Map()
+
 function loadActiveUser(i, user) {
     let tr = document.createElement("tr")
     var td0 = document.createElement("td");
@@ -58,3 +60,54 @@ function loadActiveUser(i, user) {
     var element = document.getElementById("users");
     element.appendChild(tr)
 }
+
+let user_test = {
+    "firstName": "john",
+    "lastName": "doe",
+    "email": "user@gmail.com",
+    "role": "manager",
+    "birthDate": "2 jun",
+    "city": "cairo",
+    "address": "address dummy",
+    "gender": "male",
+    "User_ID": 5
+};
+
+function get_Users() {
+    //url contain userid to get the reservations of this user.
+    let url = "https://reqres.in/api/users?page=2"
+    sendHttpRequest('GET', url).then(
+        responseData => {
+            let Data = responseData["data"];
+            console.log(Data)
+            var i = 1
+            for (var user in Data) {
+                // User_map[user["User_ID"]] = user;
+                // loadPendingUser(user);
+                User_map[user_test["User_ID"]] = user_test;
+                loadActiveUser(i, user_test);
+                i += 1;
+            }
+
+        })
+}
+
+$(document).ready(function () {
+    get_Users();
+    //cancel reservation button.
+    $("button").click(function () {
+        let ID = $(this).attr('value')
+        var user = User_map[String(ID)]
+        let url = ""
+        // sendHttpRequest('POST', url,{user_id:userID,seat_id:reservation["Seat_ID"],stadium:reservation["stadium"],Match_time:reservation["Match_time"]}).then(
+        //     responseData => {
+        //         let state = responseData["state"];
+        //         console.log(state)
+        //         if (state == "success")
+        //         {
+        //             //reload
+        //             window.location.replace("./sysAdmin_pendingUsers.html")
+        //         }
+        //     })
+    })
+})

@@ -61,7 +61,7 @@ function loadPendingUser(i, user) {
     element.appendChild(tr)
 }
 
-let pending_user_test = {
+let user_test = {
     "firstName": "john",
     "lastName": "doe",
     "email": "user@gmail.com",
@@ -69,7 +69,7 @@ let pending_user_test = {
     "birthDate": "2 jun",
     "city": "cairo",
     "address": "address dummy",
-    "gender": "el salam",
+    "gender": "male",
     "User_ID": 5
 };
 
@@ -84,8 +84,8 @@ function get_Users() {
             for (var user in Data) {
                 // User_map[user["User_ID"]] = user;
                 // loadPendingUser(user);
-                User_map[pending_user_test["User_ID"]] = pending_user_test;
-                loadPendingUser(i, pending_user_test);
+                User_map[user_test["User_ID"]] = user_test;
+                loadPendingUser(i, user_test);
                 i += 1;
             }
 
