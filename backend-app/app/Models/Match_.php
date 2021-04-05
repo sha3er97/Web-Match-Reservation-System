@@ -116,7 +116,7 @@ class Match_ extends Model
      */
     public function createMatch ($home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
 
-        return DB::table('matches')->insert(['home' => $home,
+        $id = DB::table('matches')->insert(['home' => $home,
                         'home' => $home,
                         'away'  => $away,
                         'stadium' => $stadium,
@@ -126,6 +126,7 @@ class Match_ extends Model
                         'lineman_1' => $lineman_1,
                         'lineman_2' => $lineman_2,]);
 
+       return DB::table('matches')->max('id');
     }
 
 

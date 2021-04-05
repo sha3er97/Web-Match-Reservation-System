@@ -29,18 +29,16 @@ class Seat extends Model
     response: database row of reserved seat 
      */
 
-    public function reserve ($id, $row, $column, $state, $stadium, $user, $match) {
-        return DB::table('seats')->insert([
-            'username' => $id,
-            'password' => $row,
-            'firstname' => $column,
-            'lastname' => $state,
-            'birthdate' => $stadium,
-            'gender' => $user,
-            'city' => $match,
-   
-
+    public function reserve ( $row, $column, $state, $stadium, $user, $match) {
+        $isCreated =  DB::table('seats')->insert([
+            'row' => $row,
+            'column' => $column,
+            'state' => $state,
+            'stadium' => $stadium,
+            'user' => $user,
+            'match' => $match,
         ]);
+        return DB::table('seats')->max('id');
     }
 
      /*
@@ -53,7 +51,7 @@ class Seat extends Model
 
     
     public function getseats ($matchid) {
-        $seatss = DB::table('seats')->ehere('match',$matchid)->get();
+        $seatss = DB::table('seats')->where('match',$matchid)->get();
 
         return $seatss;
     }
@@ -88,13 +86,13 @@ class Seat extends Model
 
 
 
-
+/*
         $sentmessages = DB::select(" select *
                 from seats as s, Match_ as m
                 where (s.match=m.id and s.user='$username');");
 
         return  $sentmessages;
-
+*/
     }
 
  
