@@ -40,6 +40,7 @@ Route::middleware('auth:api')->group(function () {
 
     
     Route::get('/addStadium', 'StadiumController@addStadium');
+    
 
 });
 
