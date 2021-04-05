@@ -80,13 +80,23 @@ class Seat extends Model
 
     public function getuserseats ($username) {
 
+        $sentmessages = User::join('Match_', 'Match_.id', '=', 'seats.match')
+                        ->where('seats.user', $username)
+                        ->get(['seats.*', 'Match_.*']);
+
+        return  $sentmessages;
+
+
+
 
         $sentmessages = DB::select(" select *
                 from seats as s, Match_ as m
-                where (s.match=m.id and s.user='$username')");
+                where (s.match=m.id and s.user='$username');");
+
         return  $sentmessages;
 
     }
 
+ 
 
 }

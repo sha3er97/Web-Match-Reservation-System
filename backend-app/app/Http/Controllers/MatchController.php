@@ -44,7 +44,7 @@ class MatchController extends Controller
 
     
     public function addMatch (Request $request) {
-        return Match_::createMatch ($request);
+        return Match_::createMatch ( ($request->home,$request->away,$request->stadium,$request->date,$request->time,$request->main_referee,$request->lineman_1,$request->lineman_2);
     }
 
              /*
@@ -57,6 +57,6 @@ class MatchController extends Controller
 
     
     public function editematch (Request $request) {
-        return Match_::editMatch ($request);
+        return Match_::editMatch ($request->id,$request->home,$request->away,$request->stadium,$request->date,$request->time,$request->main_referee,$request->lineman_1,$request->lineman_2);
      }
 }

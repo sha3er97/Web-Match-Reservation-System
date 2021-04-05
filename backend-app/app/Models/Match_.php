@@ -76,22 +76,22 @@ class Match_ extends Model
     response: bool 
      */
 
-    public function editMatch (Request $request) {
+    public function editMatch ($id,$home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
 
         if (!matchExists){
             return false;
         }
         else{
             DB::table('matches')
-            ->where('id', $request->id)
-            ->update(['home' => $request->home,
-                        'away'  => $request->away,
-                        'stadium' => $request->stadium,
-                        'date' => $request->date,
-                        'time' => $request->time,
-                        'main_referee' => $request->main_referee,
-                        'lineman_1' => $request->lineman_1,
-                        'lineman_2' => $request->lineman_2,]
+            ->where('id', $id)
+            ->update(['home' => $home,
+                        'away'  => $away,
+                        'stadium' => $stadium,
+                        'date' => $date,
+                        'time' => $time,
+                        'main_referee' => $main_referee,
+                        'lineman_1' => $lineman_1,
+                        'lineman_2' => $lineman_2,]
                     );
             return true;
         }
@@ -114,16 +114,17 @@ class Match_ extends Model
 
     response: bool 
      */
-    public function createMatch (Request $request) {
+    public function createMatch ($home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
 
-        return DB::table('matches')->insert(['home' => $request->home,
-        'away'  => $request->away,
-        'stadium' => $request->stadium,
-        'date' => $request->date,
-        'time' => $request->time,
-        'main_referee' => $request->main_referee,
-        'lineman_1' => $request->lineman_1,
-        'lineman_2' => $request->lineman_2,]);
+        return DB::table('matches')->insert(['home' => $home,
+                        'home' => $home,
+                        'away'  => $away,
+                        'stadium' => $stadium,
+                        'date' => $date,
+                        'time' => $time,
+                        'main_referee' => $main_referee,
+                        'lineman_1' => $lineman_1,
+                        'lineman_2' => $lineman_2,]);
 
     }
 
