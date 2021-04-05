@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/logo.png" type="image/x-icon">
 
-    <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <script src="https://kit.fontawesome.com/06f3ac6aae.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script type="module" src="./scripts/profile.js"></script>
 
 </head>
 
@@ -32,12 +30,29 @@
                 <div class="well well-sm">
                     <div class="row">
                         <div class="col-md">
-                            <input class="col styled-input" id="name" value="John Doe"><b></b>
+<!--                            <input class="col styled-input" id="name" value="John Doe"><b></b>-->
+                            <div class="input-group ">
+                                <div class="input-group-addon ">
+                                    <i class="fas fa-file-signature col "></i>
+                                </div>
+                                <input type="text" class="styled-input" lang=" en " id="firstName" required
+                                       value="John">
 
+                            </div>
+                            </br>
+                            <div class="input-group ">
+                                <div class="input-group-addon ">
+                                    <i class="fas fa-file-signature col "></i>
+                                </div>
+                                <input type="text" class="styled-input" lang=" en " id="lastName" required
+                                       value="Doe">
+
+                            </div>
+                            </br>
                             <small class="col ">
                                 <p id="verification ">
                                     <i class="fas fa-check-circle -md-12 "></i>
-                                    Pending
+<!--                                    Pending-->
                                 </p>
                             </small>
 
@@ -45,7 +60,7 @@
                                 <div class="input-group-addon ">
                                     <i class="fas fa-user col "></i>
                                 </div>
-                                <p id="username "> John97</p>
+                                <p id="username"> John97</p>
 
                             </div>
 
@@ -53,21 +68,49 @@
                                 <div class="input-group-addon ">
                                     <i class="fas fa-flag-checkered col "></i>
                                 </div>
-                                <p id="role "> Manager</p>
+                                <p id="role"> Manager</p>
                             </div>
+
                             <div class="input-group ">
                                 <div class="input-group-addon ">
                                     <i class="fas fa-venus-mars col "></i>
                                 </div>
-                                <p id="gender "> Male</p>
+                                <!--                                <p id="gender"> Male</p>-->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="maleRadio" id="male" value="Male"
+                                           checked>
+                                    <label class="form-check-label">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="femaleRadio" id="female"
+                                           value="Female">
+                                    <label class="form-check-label">
+                                        Female
+                                    </label>
+                                </div>
                             </div>
+                            </br>
+
+                            <div class="input-group ">
+                                <div class="input-group-addon ">
+                                    <i class="fas fa-home col "></i>
+                                </div>
+                                <!-- <p id="address_city "> 7 Tahrir Square, Cairo</p> -->
+                                <input type="text" class="styled-input" lang=" en " id="address" required
+                                       value="7 Tahrir sq. ">
+
+                            </div>
+                            </br>
+
                             <div class="input-group ">
                                 <div class="input-group-addon ">
                                     <i class="fas fa-map-marker-alt col "></i>
                                 </div>
                                 <!-- <p id="address_city "> 7 Tahrir Square, Cairo</p> -->
-                                <input type="text" class="styled-input" lang=" en " id="address_city " required
-                                       value="7 Tahrir Square, Cairo ">
+                                <input type="text" class="styled-input" lang=" en " id="city" required
+                                       value="Cairo ">
 
                             </div>
                             </br>
@@ -77,7 +120,7 @@
                                     <i class="fa fa-envelope-o col "></i>
                                 </div>
                                 <!--<p id="email ">email@example.com</p>-->
-                                <input type="email" class="styled-input" lang=" en " id="email " required
+                                <input type="email" class="styled-input" lang=" en " id="email" required
                                        value="email@example.com ">
                             </div>
                             </br>
@@ -95,9 +138,13 @@
                     </div>
                 </div>
             </div>
-            <div class="login-footer md-5 mt-3 ">
-                <a class="btn btn-info link_btn " href="HomePage.html ">My tickets</a>
-            </div>
+            <!--            <div class="login-footer md-5 mt-3 ">-->
+            <!--                <a class="btn btn-info link_btn " href="Tickets.html ">My tickets</a>-->
+            <!--            </div>-->
+            <button class="btn col-md-6 mx-auto btn-lg btn-block btn-primary mt-4" type="submit" id="myBtn"
+                    onclick="submitClick()">
+                Save
+            </button>
         </form>
     </div>
 </div>
