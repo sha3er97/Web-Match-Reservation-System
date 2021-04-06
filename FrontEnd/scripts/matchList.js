@@ -2,6 +2,28 @@
 import {sendHttpRequest} from './requestUtility.js'
 let nextCount=0;
 let userauth = true;
+//teams name map
+let teams_map = new Map();
+teams_map['1'] = "Al Ahly"
+teams_map['2'] = "Al Zamalk"
+teams_map['3'] = "Pyramids"
+teams_map['4'] = "Al Masry"
+teams_map['5'] = "Masr ElMkasa"
+teams_map['6'] = "Ismali"
+teams_map['7'] = "Enppi"
+teams_map['8'] = "Talaa elgesh"
+teams_map['9'] = "elMahla"
+teams_map['10'] = "Elathad"
+teams_map['11'] = "Makawloon"
+teams_map['12'] = "Smoha"
+teams_map['13'] = "Al Gona"
+teams_map['14'] = "Wadi degla"
+teams_map['15'] = "Aswan"
+teams_map['16'] = "Ahly Bank"
+teams_map['17'] = "Intag"
+teams_map['18'] = "Cermeka"
+
+
 function addMatch(match_data)
  {
     //create container for list item
@@ -27,10 +49,10 @@ function addMatch(match_data)
                     <div class="col-md-auto">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <img name="Home_image" src = `+ match_data["Home_image_url"] + ` class="rounded" height="100px" width="100px">
+                                <img name="Home_image" src = `+ "./images/Home.png" + ` class="rounded" height="100px" width="100px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Home_Name">`+ match_data["Home_name"] + `</h1>
+                                <h1 name="Home_Name">`+ teams_map[match_data["Home_name"].tostring()] + `</h1>
                             </div>
                         </div>
                     </div>
@@ -40,17 +62,17 @@ function addMatch(match_data)
                                 <img src="images/time.png" class="rounded" height="50px" width="50px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Match_time">`+ match_data["match_time"] + `</h1>
+                                <h1 name="Match_time">`+ "19:00" + `</h1>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-auto">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <img name="Away_image" src =`+ match_data["Away_image_url"] + ` class="rounded" height="100px" width="100px">
+                                <img name="Away_image" src =`+ "./images/Away.png" + ` class="rounded" height="100px" width="100px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Away_Name">`+ match_data["Away_name"] + `</h1>
+                                <h1 name="Away_Name">`+ teams_map[match_data["Away_name"].tostring()] + `</h1>
                             </div>
                         </div>
                     </div>
@@ -80,28 +102,28 @@ function loadMatchesList(weekNumber) {
     // $("#week_number").text("week "+weekNumber)  
     let Data ="";
     //http get request to get the next list of matches.
-    const match_data = {
-        "match_id": 1,
-        "Stadium": "WE-el slam",
-        "Match_Date": "3 jun",
-        "Home_image_url": "images/ahly.png",
-        "Home_name": "Ahly",
-        "match_time": "17:00",
-        "Away_image_url": "images/ahly.png",
-        "Away_name": "Zamalk"
-    }
+    // const match_data = {
+    //     "match_id": 1,
+    //     "Stadium": "WE-el slam",
+    //     "Match_Date": "3 jun",
+    //     "Home_image_url": "images/ahly.png",
+    //     "Home_name": "Ahly",
+    //     "match_time": "17:00",
+    //     "Away_image_url": "images/ahly.png",
+    //     "Away_name": "Zamalk"
+    // }
     $("#matches_list").empty();
-    let url = "https://reqres.in/api/users?page=2"
+    let url = "https://127.0.0.1:8000/viewMatches"
     sendHttpRequest('GET',url).then(
         responseData=>
         {
-            Data = responseData["data"];
+            Data = responseData["matches"];
             Data = Data.slice(weekNumber*9,(weekNumber+1)*9)  
             console.log(Data)
             for (var match in Data)
             {
-                //addMatch(Data[match])
-                addMatch(match_data);
+                addMatch(match)
+                // addMatch(match_data);
             } 
         
         })

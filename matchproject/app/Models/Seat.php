@@ -30,7 +30,7 @@ class Seat extends Model
     response: database row of reserved seat 
      */
 
-    public static function reserve ( $row, $column, $state, $stadium, $user, $match) {
+    public static function reserveSeat ( $row, $column, $state, $stadium, $user, $match) {
 
 
         $isCreated =  DB::table('seats')->insert([
