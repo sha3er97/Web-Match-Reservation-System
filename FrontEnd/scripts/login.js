@@ -1,4 +1,5 @@
-import { sendHttpRequest } from './requestUtility.js'
+import {sendHttpRequest} from './requestUtility.js'
+
 var usern = document.getElementById("username");
 var pass = document.getElementById("password");
 var users = [];
@@ -29,9 +30,9 @@ const submit = document.getElementById("submitBtn");
 //     }
 // });
 $(document).ready(function () {
-    $("#submitBtn").click(function () {
-        url = "https://127.0.0.1:8000/signIn"
-        sendHttpRequest("POST", url, { username: usern.value, password: pass.value }).then(responseData => {
+    $("#myBtn").click(function () {
+        var url = "https://127.0.0.1:8000/signIn"
+        sendHttpRequest("POST", url, {username: usern.value, password: pass.value}).then(responseData => {
             if (responseData["success"] == 'true') {
                 localStorage.setItem("userAuth", true);
                 localStorage.setItem("usertoken", responseData["token"]);

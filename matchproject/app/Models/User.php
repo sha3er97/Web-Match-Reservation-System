@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -58,7 +60,7 @@ class User extends Authenticatable
             'password' => $password,
             'firstname' => $firstname,
             'lastname' => $lastname,
-            'birthdate' => $birthdate,
+            'birthdate' =>  Carbon::parse($birthdate),
             'gender' => $gender,
             'city' => $city,
             'address' => $address,
@@ -78,7 +80,9 @@ class User extends Authenticatable
 
     
     public static function getAllUsers () {
-        $users = DB::table('users')->get();
+       
+        $users = DB::select(" select * from users ;");
+
         return $users;
     }
 
@@ -114,7 +118,7 @@ class User extends Authenticatable
         return DB::table('users')
                     ->where('username', $username)
                     ->update(['password' => $password,
-                               'fistname' => $firstname,
+                               'firstname' => $firstname,
                                'lastname' => $lastname,
                                'birthdate' => $birthdate,
                                'gender' =>$gender,
@@ -122,5 +126,17 @@ class User extends Authenticatable
                                'address' => $address,
                                'email' => $email,
                                'role' => $role ]);
+    }
+
+
+    /*
+    funcitonality: check existance user
+
+    parameter: username
+
+    response: bool
+     */
+    public static function userExists ($username) {
+        return  DB::table('users')->where('username', $username)->exists();
     }
 }

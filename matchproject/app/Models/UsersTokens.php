@@ -14,9 +14,13 @@ class UsersTokens extends Model
      *
      * @var array
      */
+    // protected $fillable = [
+    //     'username', 'token', 'expires_at',
+    // ];
+
     protected $fillable = [
-        'username', 'token', 'expires_at',
-    ];
+            'username', 'token', 
+        ];
 
     /**
      * Insert new token of a use.

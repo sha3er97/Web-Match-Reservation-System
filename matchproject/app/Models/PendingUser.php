@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PendingUser extends Model
 {
@@ -19,7 +20,7 @@ class PendingUser extends Model
      */
     
     public static function getPendingUserByUsername ($username) {
-        $user = DB::table('pending_users')->where('username',username)->first();
+        $user = DB::table('pending_users')->where('username',$username)->first();
         return $user;
     }
     /*
@@ -48,4 +49,29 @@ class PendingUser extends Model
         $users = DB::table('pending_users')->get();
         return $users;
     }
+
+    /*
+    funcitonality: add pending users
+
+    parameter: none
+
+    response: list of database rows of that pending users 
+     */
+    
+    public static function addPendingUser ($username, $password, $firstname, $lastname, $birthdate, $gender, $city, $address, $email, $role) {
+        return DB::table('pending_users')->insert([
+            'username' => $username,
+            'password' => $password,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'birthdate' => Carbon::parse($birthdate),
+            'gender' => $gender,
+            'city' => $city,
+            'address' => $address,
+            'email' => $email,
+            'role' => $role,
+
+        ]);
+    }
+
 }
