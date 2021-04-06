@@ -72,7 +72,7 @@ class AdminController extends Controller
 
     
     public function removeUser (Request $request) {
-        $bool = User::removeUserByUsername();
+        $bool = User::removeUserByUsername($request->username);
         return response()->json([
             'success' => $bool
         ],200);
@@ -90,7 +90,7 @@ class AdminController extends Controller
     
     public function getAllUser (Request $request) {
         $users = User::getAllUsers();
-         response() -> json ([
+        return response()->json ([
             'users' => $users
         ],200);
     }

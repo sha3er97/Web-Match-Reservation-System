@@ -9,6 +9,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\PendingUser;
 use App\Models\UsersTokens;
 use Validator;
 use Mail;
@@ -39,36 +40,37 @@ class AuthenticationController extends Controller
      */
     public function signIn(Request $request)
     {
-        $valid = Validator::make($request->all(), [
-            'username' => 'required|min:5',
-            'password' => 'required|min:8',
-        ]);
+        // $valid = Validator::make($request->all(), [
+        //     'username' => 'required',
+        //     'password' => 'required',
+        // ]);
 
-        if ($valid->fails()) {
-            return response()->json([
-                'success' => 'false',
-                'error' => 'Invalid or some data missed',
-            ], 422);
-        }
+        // if ($valid->fails()) {
+        //     return response()->json([
+        //         'success' => 'false',
+        //         'error' => 'Invalid or some data missed',
+        //     ], 422);
+        // }
 
         $credentials = ['username' => $request->username, 'password' => $request->password];
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json([
-                'success' => 'false',
-                'error' => 'username and password don\'t matched',
-            ], 404);
-        }
+        $token = auth()->attempt($credentials);
+
+        // if (!$token = auth()->attempt($credentials)) {
+        //     return response()->json([
+        //         'success' => 'false',
+        //         'error' => 'username and password don\'t matched',
+        //     ], 404);
+        // }
 
         UsersTokens::insertToken([
             'username' => $request->username,
-            'token' => $token,
-            'expires_at' => Carbon::createFromTimestamp(auth()->getPayload()['exp'])->toDateTimeString(),
+            'token' => $token
         ]);
 
         return response()->json([
             'success' => 'true',
-            'token' => $token,
+            'token' => $token, // TBD
         ], 200);
     }
 
@@ -92,51 +94,22 @@ class AuthenticationController extends Controller
      */
     public function signUp(Request $request)
     {
-        $valid = Validator::make($request->all(), [
-            'username' => 'required|unique:users|min:5',
-            'password' => 'required|confirmed|min:8',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'birthdate' => 'required',
-            'gender' => 'required',
-            'city' => 'required',
-            'address' => 'required',
-            'email' => 'required|email|unique:users',
-            'role' => 'required',
-            
-        ]);
-
-        if ($valid->fails()) {
-            return response()->json([
-                'success' => 'false',
-                'error' => 'Invalid or some data missed',
-            ], 422);
-        }
-
-        $user = User::storeUser([
-            'username' => $request->username,
-            'password' => $request->password,
-            'firstname' => $request->firstname,
-            'lastname' => $request->lastname,
-            'birthdate' => $request->birthdate,
-            'gender' => $request->gender,
-            'city' => $request->city,
-            'address' => $request->address,
-            'email' => $request->email, 
-            'role' => $request->role,
-        ]);
-
-        $token = auth()->login($user);
-
-        UsersTokens::insertToken([
-            'username' => $request->username,
-            'token' => $token,
-            'expires_at' => Carbon::createFromTimestamp(auth()->getPayload()['exp'])->toDateTimeString(),
-        ]);
+        
+        $pending_user = PendingUser::addPendingUser(
+            $request->username,
+            $request->password,
+            $request->firstname,
+            $request->lastname,
+            $request->birthdate,
+            $request->gender,
+            $request->city,
+            $request->address,
+            $request->email, 
+            $request->role,
+        );
 
         return response()->json([
-            'success' => 'true',
-            'token' => $token,
+            'success' => $pending_user,
         ], 200);
     }
 }
