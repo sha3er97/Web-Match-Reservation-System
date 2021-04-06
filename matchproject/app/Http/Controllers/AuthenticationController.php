@@ -40,33 +40,34 @@ class AuthenticationController extends Controller
      */
     public function signIn(Request $request)
     {
-        // $valid = Validator::make($request->all(), [
-        //     'username' => 'required',
-        //     'password' => 'required',
-        // ]);
-
-        // if ($valid->fails()) {
-        //     return response()->json([
-        //         'success' => 'false',
-        //         'error' => 'Invalid or some data missed',
-        //     ], 422);
-        // }
+        
 
         $credentials = ['username' => $request->username, 'password' => $request->password];
 
         $token = auth()->attempt($credentials);
 
-        // if (!$token = auth()->attempt($credentials)) {
-        //     return response()->json([
-        //         'success' => 'false',
-        //         'error' => 'username and password don\'t matched',
-        //     ], 404);
-        // }
+        
 
         UsersTokens::insertToken([
             'username' => $request->username,
             'token' => $token
         ]);
+
+        if (!User::userExists($request->username)){
+            return response()->json([
+                    'success' => 'false',
+                    'error' => 'username does not exist',
+                ], 422);
+        }
+
+        $password = User::getPasswordByUsername($request->username);
+
+        if (strcmp($request->password , $password[0]->password)){
+            return response()->json([
+                    'success' => 'false',
+                    'error' => 'password does not match username',
+                ], 404);
+        }
 
         return response()->json([
             'success' => 'true',

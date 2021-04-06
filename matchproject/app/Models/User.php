@@ -139,4 +139,28 @@ class User extends Authenticatable
     public static function userExists ($username) {
         return  DB::table('users')->where('username', $username)->exists();
     }
+
+    /*
+    funcitonality: check existance user
+
+    parameter: username
+
+    response: bool
+     */
+    public static function getPasswordByUsername ($username) {
+         return DB::select(' select password
+                             from users 
+                             where username = ?', array($username));
+  
+           
+   /* return DB::insert('insert into stadiums(name, number_of_rows, number_of_columns)
+                       values(?, ?, ?);', array($name, $number_of_rows, $number_of_columns));*/
+
+
+    //  $results = DB::select('select * from users where id = ?', array(1));
+       
+    // return DB::table('users')
+        //         ->select('password')
+        //         ->where('username', $username)->first();
+    }
 }

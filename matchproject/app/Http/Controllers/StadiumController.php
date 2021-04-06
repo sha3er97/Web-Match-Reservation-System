@@ -22,4 +22,12 @@ class StadiumController extends Controller
             'success' => $bool
         ],200);
     }
+ 
+
+    public function getStadiumData (Request $request) {
+        $stadiumData =  Stadium::GetStadium ($request->name);
+        return response()->json([
+            'stadiumData' => $stadiumData
+        ],200);
+    }
 }

@@ -38,4 +38,11 @@ class Stadium extends Model
         // ]);
     }
 
+    public static function GetStadium ($name) {
+        $stadium = DB::table('stadiums')->where('name', $name)->first();
+        return $stadium;
+
+    }
+
+
 }

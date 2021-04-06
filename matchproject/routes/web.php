@@ -28,6 +28,8 @@ Route::post('/signUp', 'App\Http\Controllers\AuthenticationController@signUp');
 
 Route::patch('/editUserData', 'App\Http\Controllers\UserController@editUserData');
 
+
+
 Route::get('/viewMatches', 'App\Http\Controllers\MatchController@getallmatches');
 Route::post('/viewMatchInfo', 'App\Http\Controllers\MatchController@getmatch');
 Route::post('/addmatch', 'App\Http\Controllers\MatchController@addMatch');
@@ -40,7 +42,7 @@ Route::get('/userreservations', 'App\Http\Controllers\seatController@seatsOfUser
 
 
 Route::post('/addStadium', 'App\Http\Controllers\StadiumController@addStadium');
-
+Route::post('/getStadiumData', 'App\Http\Controllers\StadiumController@getStadiumData');
 
 //update put
 //creat post
