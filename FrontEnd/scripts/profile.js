@@ -80,8 +80,8 @@ function get_Profile_Data() {
             let Data = responseData["data"];
             console.log(Data)
             for (var user in Data) {
-                // loadProfile(user);
-                loadProfile(user_test);
+                loadProfile(user);
+                // loadProfile(user_test);
             }
 
         })

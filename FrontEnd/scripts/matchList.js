@@ -34,13 +34,13 @@ function addMatch(match_data)
                     <div class="col-sm-auto">
                         <div class="container">
                             <div class="row justify-content-center"><img src="images/stadium.png" class="rounded" height="50px" width="50px" alt="..."></div>
-                            <div class="row justify-content-center"><p>`+ match_data["Stadium"] + `</p></div>
+                            <div class="row justify-content-center"><p>`+ match_data["stadium"] + `</p></div>
                         </div>
                     </div>
                     <div class="col-sm-auto">
                         <div class="container">
                             <div class="row justify-content-center"><img src="images/calendar.png" class="rounded" height="50px" width="50px" alt="..."></div>
-                            <div class="row justify-content-center"><p>`+ match_data["Match_Date"] + `</p></div>
+                            <div class="row justify-content-center"><p>`+ match_data["match_date"] + `</p></div>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ function addMatch(match_data)
                                 <img name="Home_image" src = `+ "./images/Home.png" + ` class="rounded" height="100px" width="100px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Home_Name">`+ teams_map[match_data["Home_name"].tostring()] + `</h1>
+                                <h1 name="Home_Name">`+ teams_map[match_data["home"].tostring()] + `</h1>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ function addMatch(match_data)
                                 <img name="Away_image" src =`+ "./images/Away.png" + ` class="rounded" height="100px" width="100px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Away_Name">`+ teams_map[match_data["Away_name"].tostring()] + `</h1>
+                                <h1 name="Away_Name">`+ teams_map[match_data["away"].tostring()] + `</h1>
                             </div>
                         </div>
                     </div>

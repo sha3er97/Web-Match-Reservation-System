@@ -20,14 +20,14 @@ function loadActiveUser(i, user) {
     // let button = document.createElement("button")
     // button.classList.add("btn")
     // button.classList.add("btn-success")
-    // button.setAttribute("value", user["User_ID"])
+    // button.setAttribute("value", user["username"])
     // let text = document.createTextNode("Approve");
     // button.appendChild(text)
 
     let button2 = document.createElement("button")
     button2.classList.add("btn")
     button2.classList.add("btn-danger")
-    button2.setAttribute("value", user["User_ID"])
+    button2.setAttribute("value", user["username"])
     let text2 = document.createTextNode("Cancel");
     button2.appendChild(text2)
 
@@ -70,22 +70,24 @@ let user_test = {
     "city": "cairo",
     "address": "address dummy",
     "gender": "male",
-    "User_ID": 5
+    "username": 5
 };
 
 function get_Users() {
     //url contain userid to get the reservations of this user.
-    let url = "https://reqres.in/api/users?page=2"
+    // let url = "https://reqres.in/api/users?page=2"
+    let url = "https://127.0.0.1:8000/getAllUser"
+    
     sendHttpRequest('GET', url).then(
         responseData => {
-            let Data = responseData["data"];
+            let Data = responseData["users"];
             console.log(Data)
             var i = 1
             for (var user in Data) {
-                // User_map[user["User_ID"]] = user;
-                // loadPendingUser(user);
-                User_map[user_test["User_ID"]] = user_test;
-                loadActiveUser(i, user_test);
+                User_map[user["username"]] = user;
+                loadPendingUser(user);
+                // User_map[user_test["username"]] = user_test;
+                // loadActiveUser(i, user_test);
                 i += 1;
             }
 
@@ -98,16 +100,20 @@ $(document).ready(function () {
     $("button").click(function () {
         let ID = $(this).attr('value')
         var user = User_map[String(ID)]
-        let url = ""
-        // sendHttpRequest('POST', url,{user_id:userID,seat_id:reservation["Seat_ID"],stadium:reservation["stadium"],Match_time:reservation["Match_time"]}).then(
-        //     responseData => {
-        //         let state = responseData["state"];
-        //         console.log(state)
-        //         if (state == "success")
-        //         {
-        //             //reload
-        //             window.location.replace("./sysAdmin_pendingUsers.html")
-        //         }
-        //     })
+        let url = "https://127.0.0.1:8000/removeUser"
+        sendHttpRequest('POST', url,{username:user}).then(
+            responseData => {
+                let state = responseData["success"];
+                console.log(state)
+                if (state == true)
+                {
+                    //reload
+                    window.location.replace("./sysAdmin_exisitingUsers.html")
+                }
+                else
+                {
+                    window.alert("something wrong happen, try again")
+                }
+            })
     })
 })
