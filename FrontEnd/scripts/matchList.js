@@ -115,7 +115,7 @@ function loadMatchesList(weekNumber) {
     $("#matches_list").empty();
     let url = "https://127.0.0.1:8000/viewMatches"
     let token = document.querySelector("meta[name=”csrftoken”]").getAttribute("content");
-    sendHttpRequest('GET',url,token=token).then(
+    sendHttpRequest('GET',url,{},token).then(
         responseData=>
         {
             Data = responseData["matches"];
