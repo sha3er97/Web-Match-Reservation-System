@@ -6,39 +6,65 @@ let prevButton = -1;
 let userID = localStorage.getItem("userID");
 let selectedSeatId =0;
 let match_id = localStorage.getItem("match_id")
+let match_data = ""
+let stadium_data = ""
+let seats = ""
+
+//teams name map
+let teams_map = new Map();
+teams_map['1'] = "Al Ahly"
+teams_map['2'] = "Al Zamalk"
+teams_map['3'] = "Pyramids"
+teams_map['4'] = "Al Masry"
+teams_map['5'] = "Masr ElMkasa"
+teams_map['6'] = "Ismali"
+teams_map['7'] = "Enppi"
+teams_map['8'] = "Talaa elgesh"
+teams_map['9'] = "elMahla"
+teams_map['10'] = "Elathad"
+teams_map['11'] = "Makawloon"
+teams_map['12'] = "Smoha"
+teams_map['13'] = "Al Gona"
+teams_map['14'] = "Wadi degla"
+teams_map['15'] = "Aswan"
+teams_map['16'] = "Ahly Bank"
+teams_map['17'] = "Intag"
+teams_map['18'] = "Cermeka"
+
 
 function get_Match_Data(match_id)
 {
-    url = ""
-    sendHttpRequest("GET",url).then(responseData=>{
-        return responseData;
+    let url = "https://127.0.0.1:8000/viewMatchInfo"
+    sendHttpRequest("GET",url,{MatchId:match_id}).then(responseData=>{
+        return responseData['matchData'];
     })
 }
 function get_Stadium_data(stadium_name)
 {
-    url = ""
-    sendHttpRequest("GET",url).then(responseData=>{
-        return responseData["Data"];
+    let url = "https://127.0.0.1:8000/getStadiumData"
+    sendHttpRequest("GET",url,{name:stadium_name}).then(responseData=>{
+        return responseData["stadiumData"];
     })
 }
 function get_seats_list(match_id)
 {
     //get the seats of the stadium at this match.
-    url = ""
-    sendHttpRequest("GET",url).then(responseData=>{
-        for (seat in  responseData["Data"])
+    let url = "https://127.0.0.1:8000/viewSeatOfMatch"
+        
+    sendHttpRequest("GET",url,{MatchId:match_id}).then(responseData=>{
+        for (seat in  responseData["seats_of_match"])
         {
             //make composite key : "row,col"
-            seats_map[seat["row"].toString()+","+seat["col"].toString()] = seat["state"]
+            seats_map[seat["row"].toString()+","+seat["column"].toString()] = seat["state"]
         }
     })
 }
 function update_seat_state(stadium_name,match_id,seat_row,seat_col)
 {
-    url = ""
-    sendHttpRequest("POST",url,{user_id:userID,stadium_name:stadium_name,match_id:match_id,row:seat_row,col:seat_col,state:1}).then(responseData=>
+    let url = "https://127.0.0.1:8000/reserveSeat"
+    sendHttpRequest("POST",url,{user:userID,stadium:stadium_name,match:match_id,row:seat_row,column:seat_col,state:1}).then(responseData=>
         {
-            if(responseData["state"] == "success")
+            if(responseData["success"] == true)
             {
                 window.location.replace("./success.html")
             }
@@ -50,62 +76,62 @@ function update_seat_state(stadium_name,match_id,seat_row,seat_col)
 }
 
 
-//get the match data and stadium data and seats of stadium states on document loded.
-var match_data={"match_id":1,
-"Stadium" : "WE-el slam",
-"Match_Date":"2 jun",
-"Home_image_url" : "images/ahly.png",
-"Home_name": "AL Ahly",
-"match_time" : "17:00",
-"Away_image_url" :  "images/ahly.png",
-"Away_name" :"AL Zamalk",
-"main_referee":"Referee name",
-"lineman_1":"firstlineman",
-"lineman_2":"secondlineman"
-}
-var stadium_data = {
-    "name":"We - el slam",
-    "rows":4,
-    "cols":9
-}
+// //get the match data and stadium data and seats of stadium states on document loded.
+// var match_data={"match_id":1,
+// "Stadium" : "WE-el slam",
+// "Match_Date":"2 jun",
+// "Home_image_url" : "images/ahly.png",
+// "Home_name": "AL Ahly",
+// "match_time" : "17:00",
+// "Away_image_url" :  "images/ahly.png",
+// "Away_name" :"AL Zamalk",
+// "main_referee":"Referee name",
+// "lineman_1":"firstlineman",
+// "lineman_2":"secondlineman"
+// }
+// var stadium_data = {
+//     "name":"We - el slam",
+//     "rows":4,
+//     "cols":9
+// }
 
-//seats state 0 for free seats and 1 for reserved seats
-var seats=[{"id":0,"state":1},
-{"id":1,"state":0},
-{"id":2,"state":1},
-{"id":3,"state":1},
-{"id":4,"state":0},
-{"id":5,"state":1},
-{"id":6,"state":1},
-{"id":7,"state":0},
-{"id":8,"state":1},
-{"id":9,"state":1},
-{"id":10,"state":0},
-{"id":11,"state":1},
-{"id":12,"state":1},
-{"id":13,"state":0},
-{"id":14,"state":1},
-{"id":15,"state":1},
-{"id":16,"state":0},
-{"id":17,"state":1},
-{"id":18,"state":1},
-{"id":19,"state":0},
-{"id":20,"state":1},
-{"id":21,"state":1},
-{"id":22,"state":0},
-{"id":23,"state":1},
-{"id":24,"state":1},
-{"id":25,"state":0},
-{"id":26,"state":1},
-{"id":27,"state":1},
-{"id":28,"state":0},
-{"id":29,"state":1},
-{"id":30,"state":1},
-{"id":31,"state":0},
-{"id":32,"state":1},
-{"id":33,"state":1},
-{"id":34,"state":0},
-{"id":35,"state":1}]
+// //seats state 0 for free seats and 1 for reserved seats
+// var seats=[{"id":0,"state":1},
+// {"id":1,"state":0},
+// {"id":2,"state":1},
+// {"id":3,"state":1},
+// {"id":4,"state":0},
+// {"id":5,"state":1},
+// {"id":6,"state":1},
+// {"id":7,"state":0},
+// {"id":8,"state":1},
+// {"id":9,"state":1},
+// {"id":10,"state":0},
+// {"id":11,"state":1},
+// {"id":12,"state":1},
+// {"id":13,"state":0},
+// {"id":14,"state":1},
+// {"id":15,"state":1},
+// {"id":16,"state":0},
+// {"id":17,"state":1},
+// {"id":18,"state":1},
+// {"id":19,"state":0},
+// {"id":20,"state":1},
+// {"id":21,"state":1},
+// {"id":22,"state":0},
+// {"id":23,"state":1},
+// {"id":24,"state":1},
+// {"id":25,"state":0},
+// {"id":26,"state":1},
+// {"id":27,"state":1},
+// {"id":28,"state":0},
+// {"id":29,"state":1},
+// {"id":30,"state":1},
+// {"id":31,"state":0},
+// {"id":32,"state":1},
+// {"id":33,"state":1},
+// {"id":34,"state":0},
+// {"id":35,"state":1}]
 
 
 
@@ -122,12 +148,12 @@ function stadiumView()
     document.getElementById("seats").appendChild(table)
     
     //loop on rows and coloumns to add button.
-    for(let i=0;i<stadium_data["rows"];i++)
+    for(let i=0;i<stadium_data["number_of_rows"];i++)
     {
         let row = document.createElement("tr")
         row.style.border="none";
         row.style.borderCollapse="collapse";
-        for(let j=0;j<stadium_data["cols"];j++)
+        for(let j=0;j<stadium_data["number_of_columns"];j++)
         {
             let col = document.createElement("td")
             col.style.border="none";
@@ -183,13 +209,16 @@ function stadiumView()
 }
 function view_match_data(match_data)
 {
-    $('p[name = "stadium_name"]').text(match_data["Stadium"]);
-    $('p[name = "match_date"]').text(match_data["Match_Date"]);
-    $('h1[name="Home_Name"]').text(match_data["Home_name"]);
-    $('h1[name="Match_time"]').text(match_data["match_time"]);
-    $('h1[name="Away_Name"]').text(match_data["Away_name"]);
-    $('img[name="Away_image"]').attr("src",match_data["Away_image_url"]);
-    $('img[name="Home_image"]').attr("src",match_data["Home_image_url"]);
+    $('p[name = "stadium_name"]').text(match_data["stadium"]);
+    $('p[name = "match_date"]').text(match_data["match_date"]);
+    $('h1[name="Home_Name"]').text(teams_map[match_data["home"].toString()]);//map
+    // $('h1[name="Match_time"]').text(match_data["match_time"]);//
+    $('h1[name="Match_time"]').text("19:30");//
+    $('h1[name="Away_Name"]').text(teams_map[match_data["away"].toString()]);//map
+    // $('img[name="Away_image"]').attr("src",match_data["Away_image_url"]);//
+    // $('img[name="Home_image"]').attr("src",match_data["Home_image_url"]);//
+    $('img[name="Away_image"]').attr("src","./images/Away.png");//
+    $('img[name="Home_image"]').attr("src","./images/Home.png");//
     $('h1[name="lineman1_Name"]').text(match_data["lineman_1"])
     $('h1[name="lineman2_Name"]').text(match_data["lineman_2"])
     $('h1[name="main_referee"]').text(match_data["main_referee"])
@@ -278,9 +307,9 @@ function updateNavBar(userauth)
 // get request to get match data and stadium data.
 $(document).ready(function() {
 
-    // match_data = get_Match_Data(match_id);
-    // stadium_data = get_Stadium_data(match_data["Stadium"]); 
-    // seats = get_seats_list(match_id);
+    match_data = get_Match_Data(match_id);
+    stadium_data = get_Stadium_data(match_data["stadium"]); 
+    seats = get_seats_list(match_id);
     view_match_data(match_data);
 
     if(userauth == "true")
@@ -310,12 +339,10 @@ $(document).ready(function() {
     $("#myBtn").click(function(){
         if(selectedSeatId!=-1){
         console.log("selected seat id is : "+selectedSeatId)
-        // update_seat_state(stadium_data["name"],match_data["Stadium"],selectedSeatId);
-        //TODO Post request.
         comma = selectedSeatId.indexOf(',')
         seat_row = Number(selectedSeatId.slice(0,comma))
         seat_col = Number(selectedSeatId.slice(comma,selectedSeatId.lenght()))  
-        // update_seat_state(stadium_data["name"],match_id,seat_row,seat_col);
+        update_seat_state(stadium_data["name"],match_id,seat_row,seat_col);
         window.location.replace("./success.html")
         }
     });
