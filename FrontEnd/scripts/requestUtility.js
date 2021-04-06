@@ -1,10 +1,10 @@
-function sendHttpRequest(method, url,data,token) {
+function sendHttpRequest(method, url,data) {
     var xhttp = new XMLHttpRequest();
     xhttp.responseType = 'json'
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
     xhttp.setRequestHeader("Accept", "application/json, text-plain, */*")
-    xhttp.setRequestHeader("X-CSRF-TOKEN", token)
+    // xhttp.setRequestHeader("X-CSRF-TOKEN", token)
     xhttp.open(method, url);
     const promise = new Promise((resolve,reject)=>{
         xhttp.onreadystatechange = function () {
