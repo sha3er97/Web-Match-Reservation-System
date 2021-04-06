@@ -17,6 +17,9 @@ class StadiumController extends Controller
      */
 
     public function addStadium (Request $request) {
-        return Stadium::AddStadium ($request->name, $request->number_of_rows, $request->number_of_columns);
+        $bool =  Stadium::AddStadium ($request->name, $request->number_of_rows, $request->number_of_columns);
+        return response()->json([
+            'success' => $bool
+        ],200);
     }
 }

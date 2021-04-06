@@ -18,7 +18,10 @@ class MatchController extends Controller
 
     
     public function getallmatches (Request $request) {
-        return Match_::getMatches();
+        $matches = Match_::getMatches();
+        return response() -> json ([
+            'matches' => $matches
+        ],200); 
     }
 
      /*
@@ -30,7 +33,10 @@ class MatchController extends Controller
 
     
     public function getmatch (Request $request) {
-        return Match_::getMatchdata ($request->MatchId);
+        $matches= Match_::getMatchdata ($request->MatchId);
+        return response() -> json ([
+            'matchData' => $matches
+        ],200); 
     }
 
 
@@ -44,7 +50,11 @@ class MatchController extends Controller
 
     
     public function addMatch (Request $request) {
-        return Match_::createMatch ($request->home,$request->away,$request->stadium,$request->date,$request->time,$request->main_referee,$request->lineman_1,$request->lineman_2);
+        $matchCreated= Match_::createMatch ($request->home,$request->away,$request->stadium,$request->date,$request->time,$request->main_referee,$request->lineman_1,$request->lineman_2);
+    
+        return response() -> json ([
+            'matchcreated' => $matchCreated
+        ],200); 
     }
 
              /*
@@ -57,7 +67,11 @@ class MatchController extends Controller
 
     
     public function editematch (Request $request) {
-        return Match_::editMatch ($request->id,$request->home,$request->away,$request->stadium,$request->date,$request->time,$request->main_referee,$request->lineman_1,$request->lineman_2);
-     }
+        $matchupdated = Match_::editMatch ($request->id,$request->home,$request->away,$request->stadium,$request->date,$request->time,$request->main_referee,$request->lineman_1,$request->lineman_2);
+     
+        return response() -> json ([
+            'matchupdate' => $matchupdated  // true or false
+        ],200); 
+    }
     
 }

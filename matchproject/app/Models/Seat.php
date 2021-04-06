@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Seat extends Model
 {
@@ -29,7 +30,9 @@ class Seat extends Model
     response: database row of reserved seat 
      */
 
-    public function reserve ( $row, $column, $state, $stadium, $user, $match) {
+    public static function reserve ( $row, $column, $state, $stadium, $user, $match) {
+
+
         $isCreated =  DB::table('seats')->insert([
             'row' => $row,
             'column' => $column,
@@ -50,7 +53,7 @@ class Seat extends Model
      */
 
     
-    public function getseats ($matchid) {
+    public static function getseats ($matchid) {
         $seatss = DB::table('seats')->where('match',$matchid)->get();
 
         return $seatss;
@@ -64,7 +67,7 @@ class Seat extends Model
     response: delete seat from databes
      */
 
-    public function cancelReservation ($seatID) {
+    public static function cancelReservation ($seatID) {
         return DB::table('seats')->where('id', $seatID)->delete();
     }
 
@@ -76,23 +79,23 @@ class Seat extends Model
     response: delete seat from databes
      */
 
-    public function getuserseats ($username) {
-
-        $sentmessages = User::join('Match_', 'Match_.id', '=', 'seats.match')
-                        ->where('seats.user', $username)
-                        ->get(['seats.*', 'Match_.*']);
-
-        return  $sentmessages;
-
-
-
+    public static function getuserseats ($username) {
 /*
-        $sentmessages = DB::select(" select *
-                from seats as s, Match_ as m
-                where (s.match=m.id and s.user='$username');");
+        $sentmessages = DB::table('seats')->join('matches', 'matches.id', '=', 'seats.match')
+                        ->where('seats.user', $username)
+                        ->get(['seats.*', 'matches.*']);
 
         return  $sentmessages;
 */
+
+
+
+        $sentmessages = DB::select(" select *
+                from seats as s, matches as m
+                where (s.match=m.id and s.user='$username');");
+
+        return  $sentmessages;
+
     }
 
  

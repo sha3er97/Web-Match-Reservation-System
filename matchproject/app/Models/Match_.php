@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class Match_ extends Model
@@ -23,7 +24,7 @@ class Match_ extends Model
     response: list of matches - could be empty
      */
 
-    public function getMatches () {
+    public static function getMatches () {
 
         $matches = DB::table('matches')->get();
         return $matches;
@@ -37,7 +38,7 @@ class Match_ extends Model
     response: match data
      */
 
-    public function getMatchdata ($matchid) {
+    public static function getMatchdata ($matchid) {
 
         $match = DB::table('matches')->where('id',$matchid)->get();
 
@@ -54,9 +55,9 @@ class Match_ extends Model
     response: bool true if exists , false otherwise
      */
 
-    public function matchExists ($id) {
+    public static function matchExists ($id) {
 
-        return self::where('id', $id)->exists();
+        return  DB::table('matches')->where('id', $id)->exists();
 
 
     }
@@ -76,9 +77,9 @@ class Match_ extends Model
     response: bool 
      */
 
-    public function editMatch ($id,$home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
+    public static function editMatch ($id,$home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
 
-        if (!matchExists){
+        if (!self ::matchExists ($id)){
             return false;
         }
         else{
@@ -87,8 +88,8 @@ class Match_ extends Model
             ->update(['home' => $home,
                         'away'  => $away,
                         'stadium' => $stadium,
-                        'date' => $date,
-                        'time' => $time,
+                        'match_date' => Carbon::parse($date),
+                        'match_time' => Carbon::parse($time),
                         'main_referee' => $main_referee,
                         'lineman_1' => $lineman_1,
                         'lineman_2' => $lineman_2,]
@@ -114,14 +115,13 @@ class Match_ extends Model
 
     response: bool 
      */
-    public function createMatch ($home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
+    public static function createMatch ($home,$away,$stadium,$date,$time,$main_referee,$lineman_1,$lineman_2) {
 
         $isCreated = DB::table('matches')->insert(['home' => $home,
-                        'home' => $home,
                         'away'  => $away,
                         'stadium' => $stadium,
-                        'date' => $date,
-                        'time' => $time,
+                        'match_date' => Carbon::parse($date),
+                        'match_time' => Carbon::parse($time),
                         'main_referee' => $main_referee,
                         'lineman_1' => $lineman_1,
                         'lineman_2' => $lineman_2,]);

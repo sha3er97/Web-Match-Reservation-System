@@ -18,7 +18,7 @@ class PendingUser extends Model
     response: database row of that user 
      */
     
-    public function getPendingUserByUsername ($username) {
+    public static function getPendingUserByUsername ($username) {
         $user = DB::table('pending_users')->where('username',username)->first();
         return $user;
     }
@@ -31,7 +31,7 @@ class PendingUser extends Model
      */
     
 
-    public function rejectPendingUserByUsername ($username) {
+    public static function rejectPendingUserByUsername ($username) {
         return DB::table('pending_users')->where('username', $username)->delete(); 
         
     }
@@ -44,7 +44,7 @@ class PendingUser extends Model
     response: list of database rows of that pending users 
      */
     
-    public function getAllPendingUsers () {
+    public static function getAllPendingUsers () {
         $users = DB::table('pending_users')->get();
         return $users;
     }

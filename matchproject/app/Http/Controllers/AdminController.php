@@ -22,7 +22,10 @@ class AdminController extends Controller
     public function approvePendingUser (Request $request) {
         $user = PendingUser::getPendingUserByUsername($request->username);
         PendingUser::rejectPendingUserByUsername($request->username);
-        return User::addUser($user->username, $user->password, $user->firstname, $user->lastname, $user->birthdate, $user->gender, $user->city, $user->address, $user->email, $user->role) ;
+        $bool = User::addUser($user->username, $user->password, $user->firstname, $user->lastname, $user->birthdate, $user->gender, $user->city, $user->address, $user->email, $user->role) ;
+        return response()->json([
+            'success' => $bool
+        ],200);
     }
 
 
@@ -36,7 +39,10 @@ class AdminController extends Controller
 
     
     public function rejectPendingUser (Request $request) {
-        return PendingUser::rejectPendingUserByUsername($request->username);
+        $bool = PendingUser::rejectPendingUserByUsername($request->username);
+        return response()->json([
+            'success' => $bool
+        ],200);
     }
 
      /*
@@ -49,7 +55,11 @@ class AdminController extends Controller
 
     
     public function getAllPendingUsers (Request $request) {
-        return PendingUser::getAllPendingUsers();
+        $pendingUsers =  PendingUser::getAllPendingUsers();
+        return response()->json([
+            'success' => true,
+            'pending_users' => $pendingUsers
+        ],200);
     }
 
     /*
@@ -62,7 +72,10 @@ class AdminController extends Controller
 
     
     public function removeUser (Request $request) {
-        return User::removeUserByUsername();
+        $bool = User::removeUserByUsername();
+        return response()->json([
+            'success' => $bool
+        ],200);
     }
    
 

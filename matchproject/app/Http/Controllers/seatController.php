@@ -17,7 +17,11 @@ class seatController extends Controller
      */
 
     public function getSeatsOfMatch (Request $request) {
-        return seat::AddStadium ($request->MatchId);
+        $seats_of_match = seat::getseats ($request->MatchId);
+        return response()->json([
+            'success' => true,
+            'seats_of_match' => $seats_of_match
+        ],200);
     }
 
          /*
@@ -29,7 +33,11 @@ class seatController extends Controller
      */
    
     public function reserveSeat (Request $request) {
-        return seat::reserve ($request->id,$request->row,$request->column,$request->state,$request->stadium,$request->user,$request->match);
+        $id =  seat::reserve ($request->row,$request->column,$request->state,$request->stadium,$request->user,$request->match);
+        return response()->json([
+            'success' => true,
+            'seat_id' => $id
+        ],200);
     }
 
 
@@ -42,7 +50,10 @@ class seatController extends Controller
      */
    
     public function cancelseat (Request $request) {
-        return seat::cancelReservation ($request->id);
+        $bool = seat::cancelReservation ($request->id);
+        return response()->json([
+            'success' => $bool    //bool canceled or not
+        ],200);
     }
 
     /*
@@ -53,7 +64,12 @@ class seatController extends Controller
     response: bool
      */
    
-    public function seatsOfUser (Request $username) {
-        return seat::cancelReservation ($request->username);
+    public function seatsOfUser (Request $request) {
+        $seats = seat::getuserseats ($request->username);
+        return response()->json([
+            'success' => true,
+            'seatsid' => $seats
+        ],200);
+
     }
 }

@@ -52,7 +52,7 @@ class User extends Authenticatable
     response: database row of that user 
      */
 
-    public function addUser ($username, $password, $firstname, $lastname, $birthdate, $gender, $city, $address, $email, $role) {
+    public static function addUser ($username, $password, $firstname, $lastname, $birthdate, $gender, $city, $address, $email, $role) {
         return DB::table('users')->insert([
             'username' => $username,
             'password' => $password,
@@ -77,7 +77,7 @@ class User extends Authenticatable
      */
 
     
-    public function getAllUsers () {
+    public static function getAllUsers () {
         $users = DB::table('users')->get();
         return $users;
     }
@@ -91,8 +91,14 @@ class User extends Authenticatable
      */
 
     
-    public function removeUserByUsername ($username) {
-        return DB::table('users')->where('username', $username)->delete();
+    public static function removeUserByUsername ($username) {
+
+        try {
+            return DB::table('users')->where('username', $username)->delete();
+        } catch (\Exception $e) {
+            return false;
+        }
+        //return DB::table('users')->where('username', $username)->delete();
     }
 
     /*
@@ -104,7 +110,7 @@ class User extends Authenticatable
      */
 
     
-    public function editUserByUsername ($username, $password, $firstname, $lastname, $birthdate, $gender, $city, $address, $email, $role){
+    public static function editUserByUsername ($username, $password, $firstname, $lastname, $birthdate, $gender, $city, $address, $email, $role){
         return DB::table('users')
                     ->where('username', $username)
                     ->update(['password' => $password,
