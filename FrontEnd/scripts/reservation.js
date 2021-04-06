@@ -308,9 +308,10 @@ function updateNavBar(userauth)
 $(document).ready(function() {
 
     match_data = get_Match_Data(match_id);
+    view_match_data(match_data);
     stadium_data = get_Stadium_data(match_data["stadium"]); 
     seats = get_seats_list(match_id);
-    view_match_data(match_data);
+    
 
     if(userauth == "true")
     {

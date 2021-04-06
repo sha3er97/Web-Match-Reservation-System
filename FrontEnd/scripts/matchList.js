@@ -52,7 +52,7 @@ function addMatch(match_data)
                                 <img name="Home_image" src = `+ "./images/Home.png" + ` class="rounded" height="100px" width="100px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Home_Name">`+ teams_map[match_data["home"].tostring()] + `</h1>
+                                <h1 name="Home_Name">`+ teams_map[match_data["home"].toString()] + `</h1>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ function addMatch(match_data)
                                 <img name="Away_image" src =`+ "./images/Away.png" + ` class="rounded" height="100px" width="100px">
                             </div>
                             <div class="row justify-content-center">
-                                <h1 name="Away_Name">`+ teams_map[match_data["away"].tostring()] + `</h1>
+                                <h1 name="Away_Name">`+ teams_map[match_data["away"].toString()] + `</h1>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@ function loadMatchesList(weekNumber) {
             console.log(Data)
             for (var match in Data)
             {
-                addMatch(match)
+                addMatch(Data[match])
                 // addMatch(match_data);
             } 
         
