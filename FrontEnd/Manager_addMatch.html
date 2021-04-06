@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/manager.png" type="image/x-icon">
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
     <script src="https://kit.fontawesome.com/06f3ac6aae.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script type="module" src="./scripts/managerAddMatch.js"></script>
 
 </head>
 
@@ -32,9 +31,9 @@
             <div class="row">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="name" class="form-label">
+                        <label class="form-label">
                             Home Team (*) :</label>
-                        <select id="home_team" class="form-control select-css" required>
+                        <select id="home" class="form-control select-css" required>
                             <option disabled selected value="">choose...</option>
                             <option value="1">
                                 ahly
@@ -93,9 +92,9 @@
                         </select>
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="name" class="form-label">
+                        <label class="form-label">
                             Away Team (*) :</label>
-                        <select id="away_team" class="form-control select-css" required>
+                        <select id="away" class="form-control select-css" required>
                             <option disabled selected value="">choose...</option>
                             <option value="1">
                                 ahly
@@ -155,7 +154,7 @@
                     </div>
 
                     <div class="form-group col-md-12">
-                        <label for="rows" class="form-label">
+                        <label class="form-label">
                             Stadium (*) :</label>
                         <select id="stadium" class="form-control select-css" required>
                             <option disabled selected value="">choose...</option>
@@ -190,13 +189,14 @@
                         <input type="text" class="form-control" id="linesman2" required>
                     </div>
                     <button class="btn col-md-6 mx-auto btn-lg btn-block btn-primary mt-4" type="submit" id="myBtn"
-                            onclick="addStadium()">
+                            onclick="addMatch()">
                         Submit
                     </button>
                 </div>
             </div>
         </form>
     </div>
+</div>
 </body>
 
 </html>
